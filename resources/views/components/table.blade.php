@@ -1,5 +1,5 @@
-<div class="overflow-x-auto">
-    <table {{ $attributes->merge(['class' => 'min-w-full divide-y divide-gray-200']) }}>
+<div class="table-responsive">
+    <table {{ $attributes->merge(['class' => 'table']) }}>
         {{ $slot }}
     </table>
 </div>

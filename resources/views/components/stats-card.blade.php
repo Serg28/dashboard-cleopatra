@@ -7,20 +7,21 @@
     'color' => 'indigo',
 ])
 
+{{-- Оригінальна розмітка Cleopatra для stats card --}}
 <div class="report-card">
-    <div class="card bg-white border border-gray-300 rounded shadow-sm">
-        <div class="card-body p-6 flex flex-col">
+    <div class="card">
+        <div class="card-body flex flex-col">
             <div class="flex flex-row justify-between items-center">
                 <div class="h6 text-{{ $color }}-700 {{ $icon }}"></div>
                 @if($trend)
-                    <span class="rounded-full text-white badge bg-{{ $trendUp ? 'teal' : 'red' }}-400 text-xs px-2 py-1">
+                    <span class="rounded-full text-white badge bg-{{ $trendUp ? 'teal' : 'red' }}-400 text-xs">
                         {{ $trend }} <i class="fal fa-chevron-{{ $trendUp ? 'up' : 'down' }} ml-1"></i>
                     </span>
                 @endif
             </div>
             <div class="mt-8">
-                <h1 class="text-2xl font-bold">{{ $value }}</h1>
-                <p class="text-gray-500 text-sm font-semibold uppercase">{{ $title }}</p>
+                <h1 class="h5 {{ $attributes->get('num-class', 'num-4') }}">{{ $value }}</h1>
+                <p>{{ $title }}</p>
             </div>
         </div>
     </div>

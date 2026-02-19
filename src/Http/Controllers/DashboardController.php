@@ -6,6 +6,11 @@ use Illuminate\Routing\Controller;
 
 class DashboardController extends Controller
 {
+    public function index()
+    {
+        return $this->analytics();
+    }
+
     public function analytics()
     {
         return view('dashboard-cleopatra::pages.analytics');

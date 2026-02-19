@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use LDK\DashboardCleopatra\Http\Controllers\DashboardController;
 
 Route::prefix('cleopatra-demo')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('cleopatra.demo.index');
     Route::get('/analytics', [DashboardController::class, 'analytics'])->name('cleopatra.demo.analytics');
     Route::get('/ecommerce', [DashboardController::class, 'ecommerce'])->name('cleopatra.demo.ecommerce');
     Route::get('/crypto', [DashboardController::class, 'crypto'])->name('cleopatra.demo.crypto');

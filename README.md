@@ -1,15 +1,14 @@
 # LDK Cleopatra - Тема для панелі керування Laravel
 
-Цей пакет надає повну порт версію шаблону [Cleopatra](https://github.com/moesaid/cleopatra) для Laravel 10+, 11 та 12. Пакет повністю незалежний від зовнішніх UI-бібліотек і надає власний набір Blade-компонентів.
+Цей пакет надає повну порт версію шаблону [Cleopatra](https://github.com/moesaid/cleopatra) для Laravel 10+, 11 та 12. Пакет повністю незалежний від зовнішніх UI-бібліотек і надає власний набір Blade-компонентів, що на 100% відповідають оригінальній верстці.
 
 ## Особливості
 
--   **Повна незалежність**: Пакет більше не вимагає `dashboard-ui`, що вирішує конфлікти версій Livewire.
+-   **100% відповідність оригіналу**: Всі компоненти та сторінки відтворюють оригінальну розмітку Cleopatra.
+-   **Повна незалежність**: Пакет не вимагає `dashboard-ui` або інших зовнішніх UI-пакетів.
 -   **Підтримка Laravel 10, 11 та 12**.
 -   **Livewire 3 та 4**: Повна сумісність, підтримка **Livewire Islands** та **wire:navigate**.
--   **Власна бібліотека компонентів**: Картки, кнопки, бейджі, форми, таблиці, модальні вікна та інше.
--   **Адаптивний дизайн**: Оптимізовано для всіх пристроїв.
--   **Демо-сторінки**: Включено готові приклади дашбордів, таблиць та форм.
+-   **Власна бібліотека компонентів**: Картки, кнопки, бейджі, форми, таблиці, модальні вікна, сайдбар та хедер.
 -   **Українська локалізація**: Всі коментарі та документація українською мовою.
 
 ## Встановлення
@@ -27,50 +26,58 @@ php artisan vendor:publish --tag=dashboard-cleopatra-config
 php artisan vendor:publish --tag=dashboard-cleopatra-assets
 ```
 
-## Швидкий старт (Демо)
+## Тестові сторінки (Демо)
 
-Щоб побачити пакет у дії, увімкніть демо-режим у `config/dashboard-cleopatra.php`:
+Щоб переглянути готові сторінки, увімкніть демо-режим у `config/dashboard-cleopatra.php`:
 
 ```php
 'demo' => true,
 ```
 
-Після цього вам будуть доступні наступні маршрути:
--   `/cleopatra-demo/analytics` — Головний дашборд аналітики.
--   `/cleopatra-demo/tables` — Приклад сторінки з таблицями.
--   `/cleopatra-demo/forms` — Приклад сторінки з формами.
+Маршрути для тестування:
+-   `/cleopatra-demo/analytics` — Головний дашборд аналітики (копія оригіналу).
 -   `/cleopatra-demo/ecommerce` — Дашборд електронної комерції.
--   `/cleopatra-demo/crypto` — Крипто-дашборд.
+-   `/cleopatra-demo/tables` — Сторінка з прикладами таблиць.
+-   `/cleopatra-demo/forms` — Сторінка з прикладами форм.
+-   `/cleopatra-demo/ui-elements` — Бібліотека UI елементів.
 
 ## Використання компонентів
 
-Пакет надає набір префіксованих компонентів `x-dashboard-cleopatra::`.
+Пакет надає набір компонентів з префіксом `x-dashboard-cleopatra-`.
 
-### Приклади:
+### Приклади компонентів:
 
-**Кнопка:**
+**Картка (Card):**
 ```blade
-<x-dashboard-cleopatra::button color="indigo" size="md">
-    Натисни мене
-</x-dashboard-cleopatra::button>
+<x-dashboard-cleopatra-card>
+    <x-slot name="header">Заголовок</x-slot>
+    Вміст
+</x-dashboard-cleopatra-card>
 ```
 
-**Картка:**
+**Статистична картка (Stats Card):**
 ```blade
-<x-dashboard-cleopatra::card>
-    <x-slot name="header">Заголовок картки</x-slot>
-    Вміст вашої картки
-</x-dashboard-cleopatra::card>
-```
-
-**Статистична картка:**
-```blade
-<x-dashboard-cleopatra::stats-card
+<x-dashboard-cleopatra-stats-card
     title="Продажі"
     value="$12,000"
     trend="+5%"
     icon="fad fa-shopping-cart"
+    color="indigo"
 />
+```
+
+**Таблиця (Table):**
+```blade
+<x-dashboard-cleopatra-table>
+    <x-dashboard-cleopatra-thead>
+        <x-dashboard-cleopatra-th>Назва</x-dashboard-cleopatra-th>
+    </x-dashboard-cleopatra-thead>
+    <tbody>
+        <x-dashboard-cleopatra-tr>
+            <x-dashboard-cleopatra-td>Значення</x-dashboard-cleopatra-td>
+        </x-dashboard-cleopatra-tr>
+    </tbody>
+</x-dashboard-cleopatra-table>
 ```
 
 ---
@@ -78,18 +85,14 @@ php artisan vendor:publish --tag=dashboard-cleopatra-assets
 ## Інструкція для розробника та ІІ
 
 ### Архітектура
-
--   **Компоненти**: Знаходяться в `resources/views/components/`. Кожен компонент спроектований так, щоб бути максимально незалежним.
--   **Лейаути**: `layouts/full.blade.php` - основний макет з бічною панеллю.
--   **Контролери та Маршрути**: Демо-логіка знаходиться в `src/Http/Controllers` та `routes/web.php`.
+Кожен компонент в `resources/views/components/` відповідає за певну частину оригінального шаблону. Макети в `resources/views/layouts/` використовують ці компоненти для створення цілісного інтерфейсу.
 
 ### Кастомізація
-
-1.  **Теми**: Для зміни кольорів використовуйте Tailwind класи або змініть конфігурацію в `tailwind.config.js`.
-2.  **Нові сторінки**: Створюйте нові Blade-файли, розширюючи `dashboard-cleopatra::layouts.full`.
+1.  **Навігація**: Редагуйте масив `nav` у `config/dashboard-cleopatra.php`. Підтримуються вкладені елементи (dropdown).
+2.  **Стилі**: Пакет використовує скомпілений CSS Cleopatra. Ви можете додавати свої стилі через `@push('style')`.
+3.  **Livewire**: Для Livewire 4 використовуйте `@island(name: 'name')` навколо частин, що часто оновлюються (наприклад, графіки).
 
 ### Поради для ІІ
-
--   При генерації коду для цього пакета завжди використовуйте префікс `x-dashboard-cleopatra::` для компонентів.
--   Для навігації між сторінками використовуйте `wire:navigate`.
--   Цей пакет НЕ залежить від `dashboard-ui`. Всі компоненти вбудовані.
+-   Для створення нових сторінок використовуйте `@extends('dashboard-cleopatra::layouts.full')`.
+-   Для інтерактивності використовуйте Alpine.js, який вже інтегрований.
+-   Всі компоненти мають префікс `x-dashboard-cleopatra-` для уникнення конфліктів.

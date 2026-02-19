@@ -13,10 +13,8 @@ class DashboardCleopatraServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/dashboard-cleopatra.php', 'dashboard-cleopatra');
 
-        // Реєстрація хелпера dashboard_rtl, якщо він не визначений
         if (! function_exists('dashboard_rtl')) {
             function dashboard_rtl($rtl, $ltr) {
-                // За замовчуванням використовуємо LTR, якщо не арабська мова або іврит
                 return in_array(app()->getLocale(), ['ar', 'he', 'fa']) ? $rtl : $ltr;
             }
         }
@@ -24,7 +22,6 @@ class DashboardCleopatraServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        // Використовуємо Tailwind для пагінації
         Paginator::useTailwind();
 
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'dashboard-cleopatra');
@@ -46,25 +43,37 @@ class DashboardCleopatraServiceProvider extends ServiceProvider
 
     protected function registerComponents()
     {
-        Blade::component('dashboard-cleopatra::components.card', 'cleopatra-card');
-        Blade::component('dashboard-cleopatra::components.button', 'cleopatra-button');
-        Blade::component('dashboard-cleopatra::components.badge', 'cleopatra-badge');
-        Blade::component('dashboard-cleopatra::components.alert', 'cleopatra-alert');
-        Blade::component('dashboard-cleopatra::components.dropdown', 'cleopatra-dropdown');
-        Blade::component('dashboard-cleopatra::components.modal', 'cleopatra-modal');
-        Blade::component('dashboard-cleopatra::components.stats-card', 'cleopatra-stats-card');
-        Blade::component('dashboard-cleopatra::components.label', 'cleopatra-label');
+        $prefix = 'dashboard-cleopatra-';
 
-        Blade::component('dashboard-cleopatra::components.table', 'cleopatra-table');
-        Blade::component('dashboard-cleopatra::components.thead', 'cleopatra-thead');
-        Blade::component('dashboard-cleopatra::components.tr', 'cleopatra-tr');
-        Blade::component('dashboard-cleopatra::components.th', 'cleopatra-th');
-        Blade::component('dashboard-cleopatra::components.td', 'cleopatra-td');
+        $components = [
+            'card' => 'components.card',
+            'button' => 'components.button',
+            'badge' => 'components.badge',
+            'alert' => 'components.alert',
+            'dropdown' => 'components.dropdown',
+            'modal' => 'components.modal',
+            'stats-card' => 'components.stats-card',
+            'label' => 'components.label',
+            'sidebar' => 'components.sidebar',
+            'sidebar-item' => 'components.sidebar-item',
+            'sidebar-label' => 'components.sidebar-label',
+            'header' => 'components.header',
+            'header-item' => 'components.header-item',
+            'table' => 'components.table',
+            'thead' => 'components.thead',
+            'tr' => 'components.tr',
+            'th' => 'components.th',
+            'td' => 'components.td',
+            'input' => 'components.form.input',
+            'select' => 'components.form.select',
+            'checkbox' => 'components.form.checkbox',
+            'textarea' => 'components.form.textarea',
+            'login' => 'components.login',
+        ];
 
-        Blade::component('dashboard-cleopatra::components.form.input', 'cleopatra-input');
-        Blade::component('dashboard-cleopatra::components.form.select', 'cleopatra-select');
-        Blade::component('dashboard-cleopatra::components.form.checkbox', 'cleopatra-checkbox');
-        Blade::component('dashboard-cleopatra::components.form.textarea', 'cleopatra-textarea');
+        foreach ($components as $alias => $view) {
+            Blade::component("dashboard-cleopatra::$view", $prefix . $alias);
+        }
     }
 
     protected function registerRoutes()
@@ -76,8 +85,6 @@ class DashboardCleopatraServiceProvider extends ServiceProvider
 
     protected function registerIslandFallback()
     {
-        // Якщо Livewire 4 не встановлено (і директива @island відсутня),
-        // реєструємо її як пусту обгортку для сумісності з Livewire 3
         if (! array_key_exists('island', Blade::getCustomDirectives())) {
             Blade::directive('island', function ($expression) {
                 return "<?php ?>";
