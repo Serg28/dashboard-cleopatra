@@ -12,12 +12,6 @@ class DashboardCleopatraServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/dashboard-cleopatra.php', 'dashboard-cleopatra');
-
-        if (! function_exists('dashboard_rtl')) {
-            function dashboard_rtl($rtl, $ltr) {
-                return in_array(app()->getLocale(), ['ar', 'he', 'fa']) ? $rtl : $ltr;
-            }
-        }
     }
 
     public function boot()

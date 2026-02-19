@@ -1,14 +1,12 @@
 <!-- start sidebar -->
-<div id="sideBar"
-    :class="sidebarOpen ? 'md:ml-0' : 'md:-ml-64'"
-    class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 flex-none w-64 md:-ml-64 md:fixed md:top-0 md:z-30 md:h-screen md:shadow-xl animated faster transition-all duration-300">
+<div id="sideBar" class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 flex-none w-64 md:-ml-64 md:fixed md:top-0 md:z-30 md:h-screen md:shadow-xl animated faster">
 
   <!-- sidebar content -->
   <div class="flex flex-col">
 
     <!-- sidebar toggle -->
     <div class="text-right hidden md:block mb-4">
-      <button @click="sidebarOpen = false" id="sideBarHideBtn">
+      <button id="sideBarHideBtn">
         <i class="fad fa-times-circle"></i>
       </button>
     </div>
@@ -22,7 +20,9 @@
 
             @default
                 @if (isset($parent['items']) && is_array($parent['items']))
-                    {{-- Дропдаун для бічної панелі --}}
+                    {{-- Дропдаун для бічної панелі (якщо він підтримується в 1.x) --}}
+                    {{-- Оригінальний шаблон 1.x не має складних дропдаунів в сайдбарі,
+                         але ми додаємо підтримку --}}
                     <div class="mb-3" x-data="{ open: @js(collect($parent['items'])->contains('active', true)) }">
                         <button @click="open = !open" class="flex items-center justify-between w-full font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500 focus:outline-none">
                             <div class="flex items-center gap-2">

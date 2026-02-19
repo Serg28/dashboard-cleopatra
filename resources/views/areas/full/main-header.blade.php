@@ -6,7 +6,7 @@
       <img src="{{ asset(config('dashboard-cleopatra.logo.default')) }}" class="w-10 flex-none">
       <strong class="capitalize ml-1 flex-1">{{ config('dashboard-cleopatra.title') }}</strong>
 
-      <button @click="sidebarOpen = !sidebarOpen" id="sliderBtn" class="flex-none text-right text-gray-900 hidden md:block">
+      <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden md:block">
         <i class="fad fa-list-ul"></i>
       </button>
     </div>
@@ -33,9 +33,9 @@
       <div class="flex flex-row-reverse items-center">
 
         <!-- user -->
-        <div class="dropdown relative md:static" x-data="{ open: false }">
+        <div class="dropdown relative md:static">
 
-          <button @click="open = !open" class="menu-btn focus:outline-none focus:ring flex flex-wrap items-center">
+          <button class="menu-btn focus:outline-none focus:ring flex flex-wrap items-center">
             <div class="w-8 h-8 overflow-hidden rounded-full">
               <img class="w-full h-full object-cover" src="{{ asset('vendor/dashboard-cleopatra/img/user.svg') }}" >
             </div>
@@ -46,9 +46,9 @@
             </div>
           </button>
 
-          <button x-show="open" @click="open = false" class="fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
+          <button class="hidden fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
 
-          <div x-show="open" class="text-gray-500 menu md:mt-10 md:w-full rounded bg-white shadow-md absolute z-20 right-0 w-40 mt-5 py-2 animated faster fadeIn">
+          <div class="text-gray-500 menu hidden md:mt-10 md:w-full rounded bg-white shadow-md absolute z-20 right-0 w-40 mt-5 py-2 animated faster">
 
             <!-- item -->
             <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="#" wire:navigate>
@@ -79,15 +79,15 @@
         <!-- end user -->
 
         <!-- notifcation -->
-        <div class="dropdown relative mr-5 md:static" x-data="{ open: false }">
+        <div class="dropdown relative mr-5 md:static">
 
-          <button @click="open = !open" class="text-gray-500 menu-btn p-0 m-0 hover:text-gray-900 focus:text-gray-900 focus:outline-none transition-all ease-in-out duration-300">
+          <button class="text-gray-500 menu-btn p-0 m-0 hover:text-gray-900 focus:text-gray-900 focus:outline-none transition-all ease-in-out duration-300">
             <i class="fad fa-bells"></i>
           </button>
 
-          <button x-show="open" @click="open = false" class="fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
+          <button class="hidden fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
 
-          <div x-show="open" class="menu rounded bg-white md:right-0 md:w-full shadow-md absolute z-20 right-0 w-84 mt-5 py-2 animated faster fadeIn">
+          <div class="menu hidden rounded bg-white md:right-0 md:w-full shadow-md absolute z-20 right-0 w-84 mt-5 py-2 animated faster">
             <!-- top -->
             <div class="px-4 py-2 flex flex-row justify-between items-center capitalize font-semibold text-sm">
               <h1>сповіщення</h1>

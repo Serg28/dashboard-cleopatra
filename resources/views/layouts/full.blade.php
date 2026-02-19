@@ -6,7 +6,7 @@
     @endisland
 
     <!-- strat wrapper -->
-    <div class="h-screen flex flex-row flex-wrap" x-data="{ sidebarOpen: false }">
+    <div class="h-screen flex flex-row flex-wrap">
 
       @island(name: 'main-sidebar', always: true)
           @include('dashboard-cleopatra::areas.full.main-sidebar')
