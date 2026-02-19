@@ -1,29 +1,29 @@
 <div class="lg:fixed lg:w-full lg:top-0 lg:z-20 flex flex-row flex-wrap items-center bg-white p-6 border-b border-gray-300"
     dir="{{ dashboard_rtl('rtl', 'ltr') }}">
 
-    {{-- logo --}}
+    {{-- логотип --}}
     <div class="flex-none w-56 flex flex-row items-center">
-        <a href="{{ config('dashboard-ui.url.home') }}">
+        <a href="{{ config('dashboard-ui.url.home') }}" wire:navigate>
             <img class="flex-none"
-                src="{{ config('dashboard-ui.logo.default') }}"
+                src="{{ asset(config('dashboard-cleopatra.logo.default')) }}"
                 width="100"
                 height="100">
         </a>
     </div>
-    {{-- end logo --}}
+    {{-- кінець логотипу --}}
 
-    {{-- navbar content toggle --}}
+    {{-- перемикач контенту навігаційної панелі --}}
     <button id="navbarToggle"
         class="hidden lg:block lg:fixed right-0 mr-6">
         <i class="fad fa-chevron-double-down"></i>
     </button>
-    {{-- end navbar content toggle --}}
+    {{-- кінець перемикача контенту навігаційної панелі --}}
 
-    {{-- navbar content --}}
+    {{-- контент навігаційної панелі --}}
     <div id="navbar"
         class="animated lg:hidden lg:fixed lg:top-0 lg:w-full lg:left-0 lg:mt-16 lg:border-t lg:border-b lg:border-gray-200 lg:p-10 lg:pb-5 lg:bg-white flex-1 pl-3 flex flex-row flex-wrap justify-between items-center lg:flex-col lg:items-center">
 
-        {{-- start navbar --}}
+        {{-- початок навігаційної панелі --}}
         <div
             class="flex flex-row justify-between items-center gap-4 lg:w-full lg:flex lg:flex-col lg:justify-evenly lg:pb-5 lg:mb-5 lg:border-b lg:border-gray-500 lg:gap-0 lg:items-end">
             @foreach (config('dashboard-ui.nav') as $parent)
@@ -33,13 +33,15 @@
                         @foreach ($parent['items'] ?? [] as $child)
                             <x-dashboard-dropdown-item :href="$child['url']"
                                 :active="$child['active'] ?? false"
-                                :hideHr="$loop->last">
+                                :hideHr="$loop->last"
+                                wire:navigate>
                                 {{ __($child['title']) }}
                             </x-dashboard-dropdown-item>
                         @endforeach
                     </x-dashboard-dropdown>
                 @else
                     <a href="{{ $parent['url'] }}"
+                        wire:navigate
                         @class([
                             'menu-btn p-0 m-0 focus:outline-none transition-all ease-in-out duration-300',
                             'text-gray-500 hover:text-gray-900 focus:text-gray-900' =>
@@ -56,11 +58,11 @@
                 @endunless
             @endforeach
         </div>
-        {{-- end navbar --}}
+        {{-- кінець навігаційної панелі --}}
 
-        {{-- left --}}
+        {{-- ліва частина --}}
         <div class="lg:flex lg:flex-row-reverse items-center">
-            {{-- user --}}
+            {{-- користувач --}}
             <x-dashboard-dropdown>
                 <x-slot name="custom">
                     <div class="w-8 h-8 overflow-hidden rounded-full">
@@ -70,7 +72,7 @@
 
                     <div class="{{ dashboard_rtl('mr-2', 'ml-2') }} capitalize flex ">
                         <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">
-                            {{ optional(auth(config('dashboard-ui.guard', 'web'))->user())->name }}
+                            {{ optional(auth(config('dashboard-ui.guard', 'web'))->user())->name ?? 'Користувач' }}
                         </h1>
                         <i class="fad fa-chevron-down {{ dashboard_rtl('mr-2', 'ml-2') }} text-xs leading-none"></i>
                     </div>
@@ -86,7 +88,7 @@
                     {{ __('Logout') }}
                 </x-dashboard-dropdown-item>
             </x-dashboard-dropdown>
-            {{-- end user --}}
+            {{-- кінець користувача --}}
 
             @isset($navbarExtra)
                 <div
@@ -95,9 +97,9 @@
                 </div>
             @endisset
         </div>
-        {{-- end right --}}
+        {{-- кінець правої частини --}}
     </div>
-    {{-- end navbar content --}}
+    {{-- кінець контенту навігаційної панелі --}}
 
 </div>
-{{-- end navbar --}}
+{{-- кінець навігаційної панелі --}}
