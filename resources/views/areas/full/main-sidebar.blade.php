@@ -41,6 +41,6 @@
             @endswitch
         @endforeach
     </div>
-    {{-- кінець контенту бічної панелі --}}
+    {{-- end sidebar content --}}
 
 </div>
