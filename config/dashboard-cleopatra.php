@@ -51,36 +51,36 @@ return [
         [
             'title' => 'Аналітика',
             'url' => '/cleopatra-demo/analytics',
-            'icon' => 'fad fa-chart-line',
+            'icon' => 'ri-dashboard-line',
         ],
         [
             'title' => 'E-commerce',
             'url' => '/cleopatra-demo/ecommerce',
-            'icon' => 'fad fa-shopping-cart',
+            'icon' => 'ri-shopping-bag-3-line',
         ],
         [
             'title' => 'Криптовалюта',
             'url' => '/cleopatra-demo/crypto',
-            'icon' => 'fab fa-bitcoin',
+            'icon' => 'ri-coin-line',
         ],
         [
             'title' => 'UI Елементи',
             'type' => 'label',
         ],
         [
-            'title' => 'Загальні',
+            'title' => 'Компоненти',
             'url' => '/cleopatra-demo/ui-elements',
-            'icon' => 'fad fa-layer-group',
+            'icon' => 'ri-stack-line',
         ],
         [
             'title' => 'Таблиці',
             'url' => '/cleopatra-demo/tables',
-            'icon' => 'fad fa-table',
+            'icon' => 'ri-table-line',
         ],
         [
             'title' => 'Форми',
             'url' => '/cleopatra-demo/forms',
-            'icon' => 'fad fa-edit',
+            'icon' => 'ri-edit-box-line',
         ],
         [
             'title' => 'Користувач',
@@ -88,13 +88,13 @@ return [
         ],
         [
             'title' => 'Профіль',
-            'url' => '/cleopatra-demo/profile',
-            'icon' => 'fad fa-user',
+            'url' => '#',
+            'icon' => 'ri-user-line',
         ],
         [
             'title' => 'Вихід',
-            'url' => '/cleopatra-demo/login',
-            'icon' => 'fad fa-sign-out',
+            'url' => '#',
+            'icon' => 'ri-logout-box-line',
         ],
     ],
 ];

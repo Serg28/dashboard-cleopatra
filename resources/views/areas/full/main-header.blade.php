@@ -1,126 +1,50 @@
-<!-- start navbar -->
-<div class="md:fixed md:w-full md:top-0 md:z-20 flex flex-row flex-wrap items-center bg-white p-6 border-b border-gray-300">
-
-    <!-- logo -->
-    <div class="flex-none w-56 flex flex-row items-center">
-      <img src="{{ asset(config('dashboard-cleopatra.logo.default')) }}" class="w-10 flex-none">
-      <strong class="capitalize ml-1 flex-1">{{ config('dashboard-cleopatra.title') }}</strong>
-
-      <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden md:block">
-        <i class="fad fa-list-ul"></i>
-      </button>
-    </div>
-    <!-- end logo -->
-
-    <!-- navbar content toggle -->
-    <button id="navbarToggle" class="hidden md:block md:fixed right-0 mr-6">
-      <i class="fad fa-chevron-double-down"></i>
-    </button>
-    <!-- end navbar content toggle -->
-
-    <!-- navbar content -->
-    <div id="navbar" class="animated md:hidden md:fixed md:top-0 md:w-full md:left-0 md:mt-16 md:border-t md:border-b md:border-gray-200 md:p-10 md:bg-white flex-1 pl-3 flex flex-row flex-wrap justify-between items-center md:flex-col md:items-center">
-      <!-- left -->
-      <div class="text-gray-600 md:w-full md:flex md:flex-row md:justify-evenly md:pb-10 md:mb-10 md:border-b md:border-gray-200">
-        <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i class="fad fa-envelope-open-text"></i></a>
-        <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i class="fad fa-comments-alt"></i></a>
-        <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i class="fad fa-check-circle"></i></a>
-        <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i class="fad fa-calendar-exclamation"></i></a>
+<nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200">
+  <div class="px-3 py-3 lg:px-5 lg:pl-3">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center justify-start rtl:justify-end">
+        <button id="sliderBtn" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+            <span class="sr-only">Відкрити меню</span>
+            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+               <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+            </svg>
+         </button>
+        <a href="{{ route('dashboard.index') }}" class="flex ms-2 md:me-24" wire:navigate>
+          <img src="{{ asset(config('dashboard-cleopatra.logo.default')) }}" class="h-8 me-3" alt="Logo" />
+          <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap">{{ config('dashboard-cleopatra.title') }}</span>
+        </a>
       </div>
-      <!-- end left -->
-
-      <!-- right -->
-      <div class="flex flex-row-reverse items-center">
-
-        <!-- user -->
-        <div class="dropdown relative md:static">
-
-          <button class="menu-btn focus:outline-none focus:ring flex flex-wrap items-center">
-            <div class="w-8 h-8 overflow-hidden rounded-full">
-              <img class="w-full h-full object-cover" src="{{ asset('vendor/dashboard-cleopatra/img/user.svg') }}" >
+      <div class="flex items-center">
+          <div class="flex items-center ms-3">
+            <div>
+              <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                <span class="sr-only">Відкрити меню користувача</span>
+                <img class="w-8 h-8 rounded-full" src="{{ asset('vendor/dashboard-cleopatra/img/user.svg') }}" alt="user photo">
+              </button>
             </div>
-
-            <div class="ml-2 capitalize flex ">
-              <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">{{ auth()->user()->name ?? 'Користувач' }}</h1>
-              <i class="fad fa-chevron-down ml-2 text-xs leading-none"></i>
-            </div>
-          </button>
-
-          <button class="hidden fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
-
-          <div class="text-gray-500 menu hidden md:mt-10 md:w-full rounded bg-white shadow-md absolute z-20 right-0 w-40 mt-5 py-2 animated faster">
-
-            <!-- item -->
-            <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="#" wire:navigate>
-              <i class="fad fa-user-edit text-xs mr-1"></i>
-              редагувати профіль
-            </a>
-            <!-- end item -->
-
-            <!-- item -->
-            <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="#" wire:navigate>
-              <i class="fad fa-inbox-in text-xs mr-1"></i>
-              моя пошта
-            </a>
-            <!-- end item -->
-
-            <hr>
-
-            <!-- item -->
-            <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="#"
-               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-              <i class="fad fa-user-times text-xs mr-1"></i>
-              Вихід
-            </a>
-            <!-- end item -->
-
-          </div>
-        </div>
-        <!-- end user -->
-
-        <!-- notifcation -->
-        <div class="dropdown relative mr-5 md:static">
-
-          <button class="text-gray-500 menu-btn p-0 m-0 hover:text-gray-900 focus:text-gray-900 focus:outline-none transition-all ease-in-out duration-300">
-            <i class="fad fa-bells"></i>
-          </button>
-
-          <button class="hidden fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
-
-          <div class="menu hidden rounded bg-white md:right-0 md:w-full shadow-md absolute z-20 right-0 w-84 mt-5 py-2 animated faster">
-            <!-- top -->
-            <div class="px-4 py-2 flex flex-row justify-between items-center capitalize font-semibold text-sm">
-              <h1>сповіщення</h1>
-              <div class="bg-teal-100 border border-teal-200 text-teal-500 text-xs rounded px-1">
-                <strong>5</strong>
+            <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow" id="dropdown-user">
+              <div class="px-4 py-3" role="none">
+                <p class="text-sm text-gray-900" role="none">
+                  {{ auth()->user()->name ?? 'Користувач' }}
+                </p>
+                <p class="text-sm font-medium text-gray-900 truncate" role="none">
+                  {{ auth()->user()->email ?? '' }}
+                </p>
               </div>
+              <ul class="py-1" role="none">
+                <li>
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Профіль</a>
+                </li>
+                <li>
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
+                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Вихід</a>
+                </li>
+              </ul>
             </div>
-            <hr>
-            <!-- end top -->
-
-            <!-- body -->
-            <div class="p-4 text-center text-gray-500 text-xs">Немає нових сповіщень</div>
-            <!-- end body -->
-
-            <!-- bottom -->
-            <hr>
-            <div class="px-4 py-2 mt-2">
-              <a href="#" class="border border-gray-300 block text-center text-xs uppercase rounded p-1 hover:text-teal-500 transition-all ease-in-out duration-500">
-                переглянути всі
-              </a>
-            </div>
-            <!-- end bottom -->
           </div>
         </div>
-        <!-- end notifcation -->
-
-      </div>
-      <!-- end right -->
     </div>
-    <!-- end navbar content -->
-
   </div>
-<!-- end navbar -->
+</nav>
 
 @if(Route::has('logout'))
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

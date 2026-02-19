@@ -1,183 +1,179 @@
 @extends('dashboard-cleopatra::layouts.full')
 
 @section('content')
-    <!-- General Report -->
-    <div class="grid grid-cols-4 gap-6 xl:grid-cols-1">
+<div class="space-y-6">
+    <!-- Page Header -->
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+        <div>
+            <div class="flex items-center gap-3 mb-1">
+                <h1 class="text-2xl lg:text-3xl font-bold text-foreground tracking-tight">Панель керування</h1>
+                <span class="inline-flex items-center px-2 py-0.5 text-xs font-medium bg-primary/10 text-primary rounded-full">
+                    Live
+                </span>
+            </div>
+            <p class="text-sm text-muted-foreground">Огляд ваших фінансових показників</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-2 flex-wrap">
+            <button class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium bg-card border border-border rounded-lg text-foreground hover:bg-muted/50 hover:border-primary/20 transition-all duration-200 group">
+                <i class="ri-calendar-2-line text-muted-foreground group-hover:text-primary transition-colors"></i>
+                <span>20 Січ - 09 Лют, 2026</span>
+                <i class="ri-arrow-down-s-line text-muted-foreground"></i>
+            </button>
+
+            <button class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium bg-card border border-border rounded-lg text-foreground hover:bg-muted/50 hover:border-primary/20 transition-all duration-200 group">
+                <i class="ri-filter-3-line text-muted-foreground group-hover:text-primary transition-colors"></i>
+                <span>Фільтр</span>
+            </button>
+
+            <x-dashboard-cleopatra-button variant="default" class="font-semibold">
+                <i class="ri-download-cloud-2-line"></i>
+                <span>Завантажити звіт</span>
+            </x-dashboard-cleopatra-button>
+        </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <x-dashboard-cleopatra-stats-card
-            title="items sales"
-            value="1,200"
-            trend="12%"
-            icon="fad fa-shopping-cart"
-            color="indigo"
+            title="Загальний дохід"
+            value="$45,231.89"
+            trend="20.1%"
+            icon="ri-money-dollar-circle-line"
+            color="primary"
         />
         <x-dashboard-cleopatra-stats-card
-            title="new orders"
-            value="4,500"
-            trend="6%"
+            title="Підписки"
+            value="+2,350"
+            trend="180.1%"
+            icon="ri-user-follow-line"
+            color="primary"
+        />
+        <x-dashboard-cleopatra-stats-card
+            title="Показник відмов"
+            value="12.5%"
+            trend="4.0%"
             trendUp="false"
-            icon="fad fa-store"
-            color="red"
+            icon="ri-cursor-line"
+            color="primary"
         />
         <x-dashboard-cleopatra-stats-card
-            title="total Products"
-            value="300"
-            trend="72%"
-            icon="fad fa-sitemap"
-            color="yellow"
-        />
-        <x-dashboard-cleopatra-stats-card
-            title="new Visitor"
-            value="150"
-            trend="150%"
-            icon="fad fa-users"
-            color="green"
+            title="Активні зараз"
+            value="+573"
+            trend="201"
+            icon="ri-pulse-line"
+            color="primary"
         />
     </div>
-    <!-- End General Report -->
 
-    <!-- strat Analytics -->
-    <div class="mt-6 grid grid-cols-2 gap-6 xl:grid-cols-1">
-
-        <!-- update section -->
-        <div class="card bg-teal-400 border-teal-400 shadow-md text-white">
-            <div class="card-body flex flex-row">
-
-                <!-- image -->
-                <div class="img-wrapper w-40 h-40 flex justify-center items-center">
-                    <img src="{{ asset('vendor/dashboard-cleopatra/img/happy.svg') }}" alt="img title">
-                </div>
-                <!-- end image -->
-
-                <!-- info -->
-                <div class="py-2 ml-10">
-                    <h1 class="h6">Гарна робота, {{ auth()->user()->name ?? 'Користувач' }}!</h1>
-                    <p class="text-white text-xs">Ви виконали всі завдання на цей тиждень.</p>
-
-                    <ul class="mt-4">
-                        <li class="text-sm font-light"><i class="fad fa-check-double mr-2 mb-2"></i> Завершити дизайн дашборду</li>
-                        <li class="text-sm font-light"><i class="fad fa-check-double mr-2 mb-2"></i> Виправити помилку #74</li>
-                        <li class="text-sm font-light"><i class="fad fa-check-double mr-2"></i> Опублікувати версію 1.0.6</li>
-                    </ul>
-                </div>
-                <!-- end info -->
-
-            </div>
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Revenue Overview -->
+        <div class="lg:col-span-2">
+            <x-dashboard-cleopatra-card>
+                <x-slot name="header">
+                    <h4 class="font-semibold text-foreground">Огляд доходів</h4>
+                    <div class="flex items-center gap-2">
+                        <button class="px-3 py-1 text-xs font-medium rounded-md bg-primary/10 text-primary">Огляд</button>
+                        <button class="px-3 py-1 text-xs font-medium rounded-md text-muted-foreground hover:bg-muted transition-colors">Аналітика</button>
+                    </div>
+                </x-slot>
+                <div id="revenue-chart" class="h-80 w-full mt-4"></div>
+            </x-dashboard-cleopatra-card>
         </div>
-        <!-- end update section -->
 
-        <!-- carts -->
-        <div class="flex flex-col">
-
-            <!-- alert -->
-            <div class="alert alert-dark mb-6">
-                Привіт! Зачекайте хвилинку . . . . . . Підписуйтесь на наш Twitter
-                <a class="ml-2" target="_blank" href="#">@ldk_cleopatra</a>
-            </div>
-            <!-- end alert -->
-
-            <!-- charts -->
-            <div class="grid grid-cols-2 gap-6 h-full">
-
-                <div class="card">
-                    <div class="py-3 px-4 flex flex-row justify-between">
-                        <h1 class="h6">
-                            <span class="num-4">12</span>k
-                            <p>перегляди сторінок</p>
-                        </h1>
-
-                        <div class="bg-teal-200 text-teal-700 border-teal-300 border w-10 h-10 rounded-full flex justify-center items-center">
-                            <i class="fad fa-eye"></i>
+        <!-- Sales by Country -->
+        <div>
+            <x-dashboard-cleopatra-card>
+                <x-slot name="header">
+                    <h4 class="font-semibold text-foreground">Продажі за країнами</h4>
+                </x-slot>
+                <div class="space-y-4 mt-2">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="text-xl">🇺🇸</span>
+                            <span class="text-sm font-medium">США</span>
                         </div>
+                        <span class="text-sm font-bold">45%</span>
                     </div>
-                    <div class="analytics_1"></div>
-                </div>
+                    <div class="w-full bg-muted rounded-full h-1.5">
+                        <div class="bg-primary h-1.5 rounded-full" style="width: 45%"></div>
+                    </div>
 
-                <div class="card">
-                    <div class="py-3 px-4 flex flex-row justify-between">
-                        <h1 class="h6">
-                            <span class="num-2">5</span>k
-                            <p>Унікальні користувачі</p>
-                        </h1>
-
-                        <div class="bg-indigo-200 text-indigo-700 border-indigo-300 border w-10 h-10 rounded-full flex justify-center items-center">
-                            <i class="fad fa-users-crown"></i>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="text-xl">🇬🇧</span>
+                            <span class="text-sm font-medium">Великобританія</span>
                         </div>
+                        <span class="text-sm font-bold">28%</span>
                     </div>
-                    <div class="analytics_1"></div>
-                </div>
-
-            </div>
-            <!-- charts    -->
-
-        </div>
-        <!-- end charts -->
-
-    </div>
-    <!-- end Analytics -->
-
-    <!-- Sales Overview -->
-    <div class="card mt-6">
-        <div class="card-header flex flex-row justify-between">
-            <h1 class="h6">Огляд продажів</h1>
-            <div class="flex flex-row justify-center items-center">
-                <a href=""><i class="fad fa-chevron-double-down mr-6"></i></a>
-                <a href=""><i class="fad fa-ellipsis-v"></i></a>
-            </div>
-        </div>
-        <div class="card-body grid grid-cols-2 gap-6 lg:grid-cols-1">
-            <div class="p-8">
-                <h1 class="h2">5,337</h1>
-                <p class="text-black font-medium">Продажів за цей місяць</p>
-                <div class="mt-20 mb-2 flex items-center">
-                    <div class="py-1 px-3 rounded bg-green-200 text-green-900 mr-3">
-                        <i class="fa fa-caret-up"></i>
+                    <div class="w-full bg-muted rounded-full h-1.5">
+                        <div class="bg-primary h-1.5 rounded-full" style="width: 28%"></div>
                     </div>
-                    <p class="text-black"><span class="text-green-400">12% більше продажів</span> у порівнянні з минулим місяцем.</p>
-                </div>
-                <div class="flex items-center">
-                    <div class="py-1 px-3 rounded bg-red-200 text-red-900 mr-3">
-                        <i class="fa fa-caret-down"></i>
+
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="text-xl">🇩🇪</span>
+                            <span class="text-sm font-medium">Німеччина</span>
+                        </div>
+                        <span class="text-sm font-bold">15%</span>
                     </div>
-                    <p class="text-black"><span class="text-red-400">5% менше доходу</span> у порівнянні з минулим місяцем.</p>
+                    <div class="w-full bg-muted rounded-full h-1.5">
+                        <div class="bg-primary h-1.5 rounded-full" style="width: 15%"></div>
+                    </div>
                 </div>
-                <a href="#" class="btn-shadow mt-6 inline-block">переглянути деталі</a>
-            </div>
-            <div>
-                <div id="sealsOverview"></div>
-            </div>
+                <x-slot name="footer">
+                    <button class="text-xs text-primary font-medium hover:underline">Переглянути повний звіт</button>
+                </x-slot>
+            </x-dashboard-cleopatra-card>
         </div>
     </div>
-    <!-- end Sales Overview -->
+</div>
 @endsection
 
 @push('scripts')
 <script>
-    var chartOptions = function(color){
-      return {
-        chart: { height: 51, width: '100%', type: 'area', sparkline: { enabled: true }, toolbar: { show: false } },
-        grid: { show: false, padding: { top: 0, right: 0, bottom: 0, left: 0 } },
+    var options = {
+        series: [{
+            name: 'Дохід',
+            data: [31, 40, 28, 51, 42, 109, 100, 120, 80, 90, 110, 150]
+        }],
+        chart: {
+            height: 320,
+            type: 'area',
+            toolbar: { show: false },
+            fontFamily: 'Inter, sans-serif'
+        },
+        colors: ['#000'],
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 0.45,
+                opacityTo: 0.05,
+                stops: [20, 100, 100, 100]
+            }
+        },
         dataLabels: { enabled: false },
-        legend: { show: false },
-        series: [{ name: "serie1", data: [20, 40, 30, 50, 40, 60, 50] }],
-        fill: { colors: [color] },
-        stroke: { colors: [color], width: 3 },
-        yaxis: { show: false },
-        xaxis: { show: false }
-      };
-    }
-
-    var els = document.getElementsByClassName("analytics_1");
-    if(els.length > 0) {
-        new ApexCharts(els[0], chartOptions('#4fd1c5')).render();
-        new ApexCharts(els[1], chartOptions('#4c51bf')).render();
-    }
-
-    var sealsOptions = {
-        chart: { height: 350, type: 'bar', toolbar: {show: false} },
-        series: [{ name: 'Sales', data: [30, 40, 45, 50, 49, 60, 70, 91] }],
-        xaxis: { categories: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022] },
-        colors: ['#30aba0']
+        stroke: { curve: 'smooth', width: 2 },
+        xaxis: {
+            categories: ["Січ", "Лют", "Бер", "Квіт", "Трав", "Черв", "Лип", "Серп", "Вер", "Жовт", "Лист", "Груд"],
+            axisBorder: { show: false },
+            axisTicks: { show: false }
+        },
+        yaxis: {
+            labels: {
+                formatter: function (val) { return "$" + val + "k" }
+            }
+        },
+        grid: {
+            borderColor: '#f1f1f1',
+            strokeDashArray: 4
+        }
     };
-    new ApexCharts(document.querySelector("#sealsOverview"), sealsOptions).render();
+
+    var chart = new ApexCharts(document.querySelector("#revenue-chart"), options);
+    chart.render();
 </script>
 @endpush

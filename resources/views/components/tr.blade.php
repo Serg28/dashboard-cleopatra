@@ -1,3 +1,3 @@
-<tr {{ $attributes->merge(['class' => 'hover:bg-gray-50 transition duration-150 border-t border-gray-200']) }}>
+<tr {{ $attributes->merge(['class' => 'hover:bg-muted/30 transition-colors']) }}>
     {{ $slot }}
 </tr>

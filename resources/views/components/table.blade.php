@@ -1,5 +1,5 @@
-<div class="table-responsive">
-    <table {{ $attributes->merge(['class' => 'table-auto w-full text-left']) }}>
+<div class="w-full overflow-x-auto border border-border rounded-xl">
+    <table {{ $attributes->merge(['class' => 'w-full text-sm text-left']) }}>
         {{ $slot }}
     </table>
 </div>

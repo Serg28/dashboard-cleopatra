@@ -3,37 +3,26 @@
     'value',
     'trend' => null,
     'trendUp' => true,
-    'icon' => 'fad fa-chart-line',
-    'color' => 'indigo',
-    'numClass' => 'num-4'
+    'icon' => 'ri-line-chart-line',
+    'color' => 'primary',
 ])
 
-<!-- card -->
-<div {{ $attributes->merge(['class' => 'report-card']) }}>
-    <div class="card">
-        <div class="card-body flex flex-col">
-
-            <!-- top -->
-            <div class="flex flex-row justify-between items-center">
-                <div class="h6 text-{{ $color }}-700 {{ $icon }}"></div>
-                @if($trend)
-                <span class="rounded-full text-white badge bg-{{ $trendUp ? 'teal' : 'red' }}-400 text-xs">
-                    {{ $trend }}
-                    <i class="fal fa-chevron-{{ $trendUp ? 'up' : 'down' }} ml-1"></i>
-                </span>
-                @endif
-            </div>
-            <!-- end top -->
-
-            <!-- bottom -->
-            <div class="mt-8">
-                <h1 class="h5 {{ $numClass }}">{{ $value }}</h1>
-                <p>{{ $title }}</p>
-            </div>
-            <!-- end bottom -->
-
+<div {{ $attributes->merge(['class' => 'bg-card border border-border rounded-xl p-5 shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-200']) }}>
+    <div class="flex items-center justify-between">
+        <p class="text-sm font-medium text-muted-foreground">{{ $title }}</p>
+        <div class="p-2 bg-{{ $color }}/10 rounded-lg">
+            <i class="{{ $icon }} text-{{ $color }} text-lg"></i>
         </div>
     </div>
-    <div class="footer bg-white p-1 mx-4 border border-t-0 rounded rounded-t-none"></div>
+    <div class="mt-3">
+        <p class="text-2xl font-bold text-foreground">{{ $value }}</p>
+        @if($trend)
+            <div class="flex items-center gap-2 mt-1">
+                <span class="inline-flex items-center gap-1 text-xs font-medium {{ $trendUp ? 'text-emerald-600 dark:text-emerald-400' : 'text-destructive' }}">
+                    {{ $trendUp ? '+' : '-' }}{{ $trend }}
+                </span>
+                <span class="text-xs text-muted-foreground">vs last month</span>
+            </div>
+        @endif
+    </div>
 </div>
-<!-- end card -->

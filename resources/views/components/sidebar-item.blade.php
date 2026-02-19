@@ -1,18 +1,10 @@
-@props([
-    'href' => '#',
-    'active' => false,
-    'icon' => null,
-])
+@props(['label', 'icon', 'route', 'active' => false])
 
-<a href="{{ $href }}"
-    wire:navigate
-    @class([
-        'flex gap-2 items-center font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500',
-        'text-teal-700 font-bold' => $active,
-        'mb-3' => true,
-    ])>
-    @if($icon)
-        <i class="{{ $icon }} w-4 text-center"></i>
-    @endif
-    {{ $slot }}
-</a>
+<li>
+    <a href="{{ $route !== '#' ? route($route) : '#' }}"
+       class="flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 group {{ $active ? 'bg-primary/10 text-primary' : 'text-muted-foreground hover:text-foreground hover:bg-muted' }}"
+       wire:navigate>
+        <i class="{{ $icon }} text-lg {{ $active ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground' }}"></i>
+        <span class="text-sm font-medium">{{ $label }}</span>
+    </a>
+</li>

@@ -1,44 +1,62 @@
 @extends('dashboard-cleopatra::layouts.full')
 
 @section('content')
-<h1 class="h5">UI Elements</h1>
-<p>Бібліотека компонентів Cleopatra, портована на Blade компоненти.</p>
-<hr class="my-5">
+<div class="space-y-8">
+    <div>
+        <h1 class="text-2xl font-bold tracking-tight">UI Елементи</h1>
+        <p class="text-muted-foreground mt-1">Бібліотека компонентів Cleopatra 2.0, портована на Blade.</p>
+    </div>
 
-<div class="grid grid-cols-1 gap-6">
-    {{-- Кнопки --}}
-    <div class="card">
-        <div class="card-header">Кнопки</div>
-        <div class="card-body flex flex-wrap gap-4">
+    <!-- Buttons -->
+    <x-dashboard-cleopatra-card>
+        <x-slot name="header">Кнопки</x-slot>
+        <div class="flex flex-wrap gap-4">
+            <x-dashboard-cleopatra-button variant="default">Default</x-dashboard-cleopatra-button>
+            <x-dashboard-cleopatra-button variant="secondary">Secondary</x-dashboard-cleopatra-button>
+            <x-dashboard-cleopatra-button variant="destructive">Destructive</x-dashboard-cleopatra-button>
+            <x-dashboard-cleopatra-button variant="outline">Outline</x-dashboard-cleopatra-button>
+            <x-dashboard-cleopatra-button variant="ghost">Ghost</x-dashboard-cleopatra-button>
+            <x-dashboard-cleopatra-button variant="link">Link</x-dashboard-cleopatra-button>
+        </div>
+        <div class="mt-8 flex flex-wrap gap-4">
+            <x-dashboard-cleopatra-button size="sm">Small</x-dashboard-cleopatra-button>
             <x-dashboard-cleopatra-button>Default</x-dashboard-cleopatra-button>
-            <x-dashboard-cleopatra-button shadow="true">Shadow</x-dashboard-cleopatra-button>
-            <x-dashboard-cleopatra-button color="indigo">Indigo</x-dashboard-cleopatra-button>
-            <x-dashboard-cleopatra-button color="info">Info</x-dashboard-cleopatra-button>
-            <x-dashboard-cleopatra-button color="danger">Danger</x-dashboard-cleopatra-button>
-            <x-dashboard-cleopatra-button color="gray">Gray</x-dashboard-cleopatra-button>
+            <x-dashboard-cleopatra-button size="lg">Large</x-dashboard-cleopatra-button>
+            <x-dashboard-cleopatra-button size="xl">Extra Large</x-dashboard-cleopatra-button>
         </div>
-    </div>
+    </x-dashboard-cleopatra-card>
 
-    {{-- Сповіщення --}}
-    <div class="card">
-        <div class="card-header">Сповіщення</div>
-        <div class="card-body space-y-4">
-            <x-dashboard-cleopatra-alert>Це стандартне сповіщення.</x-dashboard-cleopatra-alert>
-            <x-dashboard-cleopatra-alert color="success">Успішно виконано!</x-dashboard-cleopatra-alert>
-            <x-dashboard-cleopatra-alert color="error" dismissible="true">Помилка завантаження. Спробуйте ще раз.</x-dashboard-cleopatra-alert>
-            <x-dashboard-cleopatra-alert color="dark">Темне сповіщення для важливих подій.</x-dashboard-cleopatra-alert>
-        </div>
-    </div>
+    <!-- Alerts -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <x-dashboard-cleopatra-card>
+            <x-slot name="header">Сповіщення</x-slot>
+            <div class="space-y-4">
+                <x-dashboard-cleopatra-alert variant="info" title="Інформація">
+                    Це стандартне інформаційне сповіщення.
+                </x-dashboard-cleopatra-alert>
+                <x-dashboard-cleopatra-alert variant="success" title="Успіх" dismissible>
+                    Операцію виконано успішно!
+                </x-dashboard-cleopatra-alert>
+                <x-dashboard-cleopatra-alert variant="warning" title="Увага">
+                    Зверніть увагу на цей важливий момент.
+                </x-dashboard-cleopatra-alert>
+                <x-dashboard-cleopatra-alert variant="destructive" title="Помилка">
+                    Виникла критична помилка під час обробки.
+                </x-dashboard-cleopatra-alert>
+            </div>
+        </x-dashboard-cleopatra-card>
 
-    {{-- Бейджі --}}
-    <div class="card">
-        <div class="card-header">Бейджі</div>
-        <div class="card-body flex flex-wrap gap-4">
-            <x-dashboard-cleopatra-badge color="primary">Primary</x-dashboard-cleopatra-badge>
-            <x-dashboard-cleopatra-badge color="success">Success</x-dashboard-cleopatra-badge>
-            <x-dashboard-cleopatra-badge color="danger">Danger</x-dashboard-cleopatra-badge>
-            <x-dashboard-cleopatra-badge color="warning">Warning</x-dashboard-cleopatra-badge>
-        </div>
+        <x-dashboard-cleopatra-card>
+            <x-slot name="header">Бейджі</x-slot>
+            <div class="flex flex-wrap gap-3">
+                <x-dashboard-cleopatra-badge variant="default">Primary</x-dashboard-cleopatra-badge>
+                <x-dashboard-cleopatra-badge variant="secondary">Secondary</x-dashboard-cleopatra-badge>
+                <x-dashboard-cleopatra-badge variant="success">Success</x-dashboard-cleopatra-badge>
+                <x-dashboard-cleopatra-badge variant="warning">Warning</x-dashboard-cleopatra-badge>
+                <x-dashboard-cleopatra-badge variant="destructive">Destructive</x-dashboard-cleopatra-badge>
+                <x-dashboard-cleopatra-badge variant="outline">Outline</x-dashboard-cleopatra-badge>
+            </div>
+        </x-dashboard-cleopatra-card>
     </div>
 </div>
 @endsection

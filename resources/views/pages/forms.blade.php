@@ -1,44 +1,75 @@
 @extends('dashboard-cleopatra::layouts.full')
 
 @section('content')
-<div class="grid grid-cols-2 gap-6 lg:grid-cols-1">
-    <x-dashboard-cleopatra-card>
-        <x-slot name="header">Базова форма</x-slot>
-        <form>
-            <x-dashboard-cleopatra-input label="Ім'я" name="name" placeholder="Введіть ваше ім'я" required />
-            <x-dashboard-cleopatra-input label="Електронна пошта" name="email" type="email" placeholder="example@mail.com" />
-            <x-dashboard-cleopatra-select label="Роль" name="role">
-                <option value="admin">Адміністратор</option>
-                <option value="editor">Редактор</option>
-                <option value="user">Користувач</option>
-            </x-dashboard-cleopatra-select>
-            <x-dashboard-cleopatra-textarea label="Опис" name="description" placeholder="Краткий опис..." />
-            <x-dashboard-cleopatra-checkbox label="Приймати умови" name="terms" />
-            <div class="mt-4">
-                <x-dashboard-cleopatra-button type="submit">Відправити</x-dashboard-cleopatra-button>
-            </div>
-        </form>
-    </x-dashboard-cleopatra-card>
+<div class="space-y-8">
+    <div>
+        <h1 class="text-2xl font-bold tracking-tight">Форми</h1>
+        <p class="text-muted-foreground mt-1">Компоненти введення даних Cleopatra 2.0.</p>
+    </div>
 
-    <x-dashboard-cleopatra-card>
-        <x-slot name="header">Горизонтальна форма</x-slot>
-        <form class="space-y-4">
-            <div class="flex items-center">
-                <x-dashboard-cleopatra-label class="w-1/3 mb-0">Логін</x-dashboard-cleopatra-label>
-                <div class="w-2/3">
-                    <x-dashboard-cleopatra-input name="login" class="mb-0" />
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Basic Inputs -->
+        <x-dashboard-cleopatra-card>
+            <x-slot name="header">Базові поля вводу</x-slot>
+            <div class="space-y-4">
+                <div>
+                    <x-dashboard-cleopatra-label for="name" label="Ім'я" required />
+                    <x-dashboard-cleopatra-input id="name" placeholder="Введіть ваше ім'я" />
+                </div>
+                <div>
+                    <x-dashboard-cleopatra-label for="email" label="Email" />
+                    <x-dashboard-cleopatra-input id="email" type="email" placeholder="email@example.com" />
+                </div>
+                <div>
+                    <x-dashboard-cleopatra-label for="password" label="Пароль" />
+                    <x-dashboard-cleopatra-input id="password" type="password" value="secret" />
                 </div>
             </div>
-            <div class="flex items-center">
-                <x-dashboard-cleopatra-label class="w-1/3 mb-0">Пароль</x-dashboard-cleopatra-label>
-                <div class="w-2/3">
-                    <x-dashboard-cleopatra-input name="password" type="password" class="mb-0" />
+        </x-dashboard-cleopatra-card>
+
+        <!-- Select & Textarea -->
+        <x-dashboard-cleopatra-card>
+            <x-slot name="header">Вибір та текст</x-slot>
+            <div class="space-y-4">
+                <div>
+                    <x-dashboard-cleopatra-label for="country" label="Країна" />
+                    <x-dashboard-cleopatra-select id="country" :options="['ua' => 'Україна', 'us' => 'США', 'gb' => 'Великобританія']" />
+                </div>
+                <div>
+                    <x-dashboard-cleopatra-label for="message" label="Повідомлення" />
+                    <x-dashboard-cleopatra-textarea id="message" rows="4" placeholder="Ваше повідомлення..."></x-dashboard-cleopatra-textarea>
                 </div>
             </div>
-            <div class="flex justify-end mt-4">
-                <x-dashboard-cleopatra-button color="teal">Увійти</x-dashboard-cleopatra-button>
+        </x-dashboard-cleopatra-card>
+
+        <!-- Checkboxes -->
+        <x-dashboard-cleopatra-card>
+            <x-slot name="header">Чекбокси</x-slot>
+            <div class="space-y-6">
+                <x-dashboard-cleopatra-checkbox label="Запам'ятати мене" />
+                <x-dashboard-cleopatra-checkbox label="Маркетингові розсилки" description="Отримуйте новини про продукти та пропозиції." checked />
+                <div class="flex flex-wrap gap-4">
+                    <x-dashboard-cleopatra-checkbox color="success" checked label="Success" />
+                    <x-dashboard-cleopatra-checkbox color="warning" checked label="Warning" />
+                    <x-dashboard-cleopatra-checkbox color="destructive" checked label="Danger" />
+                </div>
             </div>
-        </form>
-    </x-dashboard-cleopatra-card>
+        </x-dashboard-cleopatra-card>
+
+        <!-- Input States -->
+        <x-dashboard-cleopatra-card>
+            <x-slot name="header">Стани полів</x-slot>
+            <div class="space-y-4">
+                <div>
+                    <x-dashboard-cleopatra-label label="Поле з помилкою" />
+                    <x-dashboard-cleopatra-input error="Це поле є обов'язковим" value="Неправильне значення" />
+                </div>
+                <div>
+                    <x-dashboard-cleopatra-label label="Вимкнене поле" />
+                    <x-dashboard-cleopatra-input disabled value="Ви не можете це редагувати" />
+                </div>
+            </div>
+        </x-dashboard-cleopatra-card>
+    </div>
 </div>
 @endsection
