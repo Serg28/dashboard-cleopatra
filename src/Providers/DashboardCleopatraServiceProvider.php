@@ -11,11 +11,19 @@ class DashboardCleopatraServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/dashboard-cleopatra.php', 'dashboard-cleopatra');
+
+        // Реєстрація хелпера dashboard_rtl, якщо він не визначений
+        if (! function_exists('dashboard_rtl')) {
+            function dashboard_rtl($rtl, $ltr) {
+                // За замовчуванням використовуємо LTR, якщо не арабська мова або іврит
+                return in_array(app()->getLocale(), ['ar', 'he', 'fa']) ? $rtl : $ltr;
+            }
+        }
     }
 
     public function boot()
     {
-        // Використовуємо Tailwind для пагінації, оскільки шаблон базується на ньому
+        // Використовуємо Tailwind для пагінації
         Paginator::useTailwind();
 
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'dashboard-cleopatra');

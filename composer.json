@@ -14,6 +14,10 @@
     "illuminate/support": "^10.0|^11.0|^12.0",
     "livewire/livewire": "^3.0|^4.0"
   },
+  "conflict": {
+    "laravel-dashboard-kit/dashboard-ui": "*",
+    "laravel-dashboard-kit/dashboard-abstract": "*"
+  },
   "autoload": {
     "psr-4": {
       "LDK\\DashboardCleopatra\\": "src"

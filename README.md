@@ -19,6 +19,8 @@
 composer require laravel-dashboard-kit/dashboard-cleopatra
 ```
 
+**Важливо:** Якщо ви отримуєте помилку конфлікту `illuminate/support`, переконайтеся, що ваш проект використовує Laravel 10 або вище. Також рекомендується видалити `laravel-dashboard-kit/dashboard-ui`, якщо він був встановлений раніше, оскільки цей пакет тепер незалежний.
+
 Опублікуйте конфігурацію та асети:
 
 ```bash
@@ -57,22 +59,9 @@ php artisan vendor:publish --tag=dashboard-cleopatra-assets
 />
 ```
 
-**Модальне вікно (використовує Alpine.js):**
-```blade
-<x-dashboard-cleopatra::modal name="my-modal" title="Увага">
-    Ви впевнені?
-    <x-slot name="footer">
-        <x-dashboard-cleopatra::button @click="show = false">Так</x-dashboard-cleopatra::button>
-    </x-slot>
-</x-dashboard-cleopatra::modal>
-
-{{-- Відкриття --}}
-<button @click="$dispatch('open-modal', { name: 'my-modal' })">Відкрити</button>
-```
-
 ## Навігація
 
-Налаштуйте меню у файлі `config/dashboard-cleopatra.php`. Ви можете визначати заголовки (labels), іконки та стани активності.
+Налаштуйте меню у файлі `config/dashboard-cleopatra.php`.
 
 ---
 
@@ -81,17 +70,16 @@ php artisan vendor:publish --tag=dashboard-cleopatra-assets
 ### Архітектура
 
 -   **Компоненти**: Знаходяться в `resources/views/components/`. Кожен компонент спроектований так, щоб бути максимально незалежним.
--   **Лейаути**: `layouts/full.blade.php` - основний макет з бічною панеллю. Використовує `@island` для оптимізації оновлень Livewire.
--   **Асети**: Всі CSS та JS файли Cleopatra знаходяться в `public/assets`. При розробці використовуйте `npm run dev` для компіляції (за наявності Gulp).
+-   **Лейаути**: `layouts/full.blade.php` - основний макет з бічною панеллю.
+-   **Livewire 4 Islands**: Використовуйте директиву `@island` для частин сторінки, які повинні оновлюватися незалежно.
 
 ### Кастомізація
 
 1.  **Теми**: Для зміни кольорів використовуйте Tailwind класи або змініть конфігурацію в `tailwind.config.js`.
 2.  **Нові сторінки**: Створюйте нові Blade-файли, розширюючи `dashboard-cleopatra::layouts.full`.
-3.  **Іконки**: Пакет підтримує FontAwesome Pro (потрібен ключ у вашому проекті або використання безкоштовної версії).
 
 ### Поради для ІІ
 
 -   При генерації коду для цього пакета завжди використовуйте префікс `x-dashboard-cleopatra::` для компонентів.
--   Для навігації між сторінками використовуйте `wire:navigate` в тегах `<a>`.
--   Для динамічних частин інтерфейсу, які не потребують повного оновлення сторінки, використовуйте `@island`.
+-   Для навігації між сторінками використовуйте `wire:navigate`.
+-   Цей пакет НЕ залежить від `dashboard-ui`. Всі компоненти вбудовані.
