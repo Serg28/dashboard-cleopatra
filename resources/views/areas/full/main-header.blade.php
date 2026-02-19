@@ -1,56 +1,129 @@
-<x-dashboard-cleopatra-header>
-    <x-slot name="left">
-        <x-dashboard-cleopatra-header-item icon="fad fa-envelope-open-text" title="email" />
-        <x-dashboard-cleopatra-header-item icon="fad fa-comments-alt" title="chats" />
-        <x-dashboard-cleopatra-header-item icon="fad fa-check-circle" title="tasks" />
-        <x-dashboard-cleopatra-header-item icon="fad fa-calendar-exclamation" title="calendar" />
-    </x-slot>
+<!-- start navbar -->
+<div class="md:fixed md:w-full md:top-0 md:z-20 flex flex-row flex-wrap items-center bg-white p-6 border-b border-gray-300">
 
-    <x-slot name="right">
-        {{-- Користувач --}}
-        <x-dashboard-cleopatra-dropdown>
-            <x-slot name="custom">
-                <div class="flex items-center">
-                    <div class="w-8 h-8 overflow-hidden rounded-full mr-2">
-                        <img class="w-full h-full object-cover"
-                            src="{{ asset('vendor/dashboard-cleopatra/img/user.svg') }}">
-                    </div>
-                    <span class="text-sm font-semibold text-gray-800">{{ auth()->user()->name ?? 'Користувач' }}</span>
-                </div>
-            </x-slot>
+    <!-- logo -->
+    <div class="flex-none w-56 flex flex-row items-center">
+      <img src="{{ asset(config('dashboard-cleopatra.logo.default')) }}" class="w-10 flex-none">
+      <strong class="capitalize ml-1 flex-1">{{ config('dashboard-cleopatra.title') }}</strong>
 
-            <div class="py-2">
-                <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out"
-                    href="/cleopatra-demo/profile" wire:navigate>
-                    <i class="fad fa-user-edit text-xs mr-1"></i>
-                    редагувати профіль
-                </a>
-                <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out"
-                    href="#" wire:navigate>
-                    <i class="fad fa-inbox-in text-xs mr-1"></i>
-                    моя пошта
-                </a>
-                <hr>
-                <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out"
-                    href="#"
-                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="fad fa-user-times text-xs mr-1"></i>
-                    Вихід
-                </a>
+      <button @click="sidebarOpen = !sidebarOpen" id="sliderBtn" class="flex-none text-right text-gray-900 hidden md:block">
+        <i class="fad fa-list-ul"></i>
+      </button>
+    </div>
+    <!-- end logo -->
+
+    <!-- navbar content toggle -->
+    <button id="navbarToggle" class="hidden md:block md:fixed right-0 mr-6">
+      <i class="fad fa-chevron-double-down"></i>
+    </button>
+    <!-- end navbar content toggle -->
+
+    <!-- navbar content -->
+    <div id="navbar" class="animated md:hidden md:fixed md:top-0 md:w-full md:left-0 md:mt-16 md:border-t md:border-b md:border-gray-200 md:p-10 md:bg-white flex-1 pl-3 flex flex-row flex-wrap justify-between items-center md:flex-col md:items-center">
+      <!-- left -->
+      <div class="text-gray-600 md:w-full md:flex md:flex-row md:justify-evenly md:pb-10 md:mb-10 md:border-b md:border-gray-200">
+        <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i class="fad fa-envelope-open-text"></i></a>
+        <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i class="fad fa-comments-alt"></i></a>
+        <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i class="fad fa-check-circle"></i></a>
+        <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i class="fad fa-calendar-exclamation"></i></a>
+      </div>
+      <!-- end left -->
+
+      <!-- right -->
+      <div class="flex flex-row-reverse items-center">
+
+        <!-- user -->
+        <div class="dropdown relative md:static" x-data="{ open: false }">
+
+          <button @click="open = !open" class="menu-btn focus:outline-none focus:ring flex flex-wrap items-center">
+            <div class="w-8 h-8 overflow-hidden rounded-full">
+              <img class="w-full h-full object-cover" src="{{ asset('vendor/dashboard-cleopatra/img/user.svg') }}" >
             </div>
-        </x-dashboard-cleopatra-dropdown>
 
-        {{-- Сповіщення --}}
-        <div class="mr-5">
-            <x-dashboard-cleopatra-dropdown>
-                <x-slot name="custom">
-                    <i class="fad fa-bells text-gray-500"></i>
-                </x-slot>
-                <div class="w-64">
-                    <div class="px-4 py-2 border-b font-bold text-sm">Сповіщення</div>
-                    <div class="p-4 text-center text-gray-500 text-xs">Немає нових сповіщень</div>
-                </div>
-            </x-dashboard-cleopatra-dropdown>
+            <div class="ml-2 capitalize flex ">
+              <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">{{ auth()->user()->name ?? 'Користувач' }}</h1>
+              <i class="fad fa-chevron-down ml-2 text-xs leading-none"></i>
+            </div>
+          </button>
+
+          <button x-show="open" @click="open = false" class="fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
+
+          <div x-show="open" class="text-gray-500 menu md:mt-10 md:w-full rounded bg-white shadow-md absolute z-20 right-0 w-40 mt-5 py-2 animated faster fadeIn">
+
+            <!-- item -->
+            <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="#" wire:navigate>
+              <i class="fad fa-user-edit text-xs mr-1"></i>
+              редагувати профіль
+            </a>
+            <!-- end item -->
+
+            <!-- item -->
+            <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="#" wire:navigate>
+              <i class="fad fa-inbox-in text-xs mr-1"></i>
+              моя пошта
+            </a>
+            <!-- end item -->
+
+            <hr>
+
+            <!-- item -->
+            <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="#"
+               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+              <i class="fad fa-user-times text-xs mr-1"></i>
+              Вихід
+            </a>
+            <!-- end item -->
+
+          </div>
         </div>
-    </x-slot>
-</x-dashboard-cleopatra-header>
+        <!-- end user -->
+
+        <!-- notifcation -->
+        <div class="dropdown relative mr-5 md:static" x-data="{ open: false }">
+
+          <button @click="open = !open" class="text-gray-500 menu-btn p-0 m-0 hover:text-gray-900 focus:text-gray-900 focus:outline-none transition-all ease-in-out duration-300">
+            <i class="fad fa-bells"></i>
+          </button>
+
+          <button x-show="open" @click="open = false" class="fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
+
+          <div x-show="open" class="menu rounded bg-white md:right-0 md:w-full shadow-md absolute z-20 right-0 w-84 mt-5 py-2 animated faster fadeIn">
+            <!-- top -->
+            <div class="px-4 py-2 flex flex-row justify-between items-center capitalize font-semibold text-sm">
+              <h1>сповіщення</h1>
+              <div class="bg-teal-100 border border-teal-200 text-teal-500 text-xs rounded px-1">
+                <strong>5</strong>
+              </div>
+            </div>
+            <hr>
+            <!-- end top -->
+
+            <!-- body -->
+            <div class="p-4 text-center text-gray-500 text-xs">Немає нових сповіщень</div>
+            <!-- end body -->
+
+            <!-- bottom -->
+            <hr>
+            <div class="px-4 py-2 mt-2">
+              <a href="#" class="border border-gray-300 block text-center text-xs uppercase rounded p-1 hover:text-teal-500 transition-all ease-in-out duration-500">
+                переглянути всі
+              </a>
+            </div>
+            <!-- end bottom -->
+          </div>
+        </div>
+        <!-- end notifcation -->
+
+      </div>
+      <!-- end right -->
+    </div>
+    <!-- end navbar content -->
+
+  </div>
+<!-- end navbar -->
+
+@if(Route::has('logout'))
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+</form>
+@endif

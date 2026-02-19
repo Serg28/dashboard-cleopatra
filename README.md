@@ -34,8 +34,8 @@ php artisan vendor:publish --tag=dashboard-cleopatra-assets
 'demo' => true,
 ```
 
-Маршрути для тестування:
--   `/cleopatra-demo/analytics` — Головний дашборд аналітики (копія оригіналу).
+Маршрути для тестування (100% відповідність оригіналу):
+-   `/cleopatra-demo/analytics` — Головний дашборд аналітики.
 -   `/cleopatra-demo/ecommerce` — Дашборд електронної комерції.
 -   `/cleopatra-demo/tables` — Сторінка з прикладами таблиць.
 -   `/cleopatra-demo/forms` — Сторінка з прикладами форм.
@@ -43,7 +43,7 @@ php artisan vendor:publish --tag=dashboard-cleopatra-assets
 
 ## Використання компонентів
 
-Пакет надає набір компонентів з префіксом `x-dashboard-cleopatra-`.
+Пакет надає набір компонентів з префіксом `dashboard-cleopatra-`.
 
 ### Приклади компонентів:
 
@@ -66,20 +66,6 @@ php artisan vendor:publish --tag=dashboard-cleopatra-assets
 />
 ```
 
-**Таблиця (Table):**
-```blade
-<x-dashboard-cleopatra-table>
-    <x-dashboard-cleopatra-thead>
-        <x-dashboard-cleopatra-th>Назва</x-dashboard-cleopatra-th>
-    </x-dashboard-cleopatra-thead>
-    <tbody>
-        <x-dashboard-cleopatra-tr>
-            <x-dashboard-cleopatra-td>Значення</x-dashboard-cleopatra-td>
-        </x-dashboard-cleopatra-tr>
-    </tbody>
-</x-dashboard-cleopatra-table>
-```
-
 ---
 
 ## Інструкція для розробника та ІІ
@@ -89,10 +75,10 @@ php artisan vendor:publish --tag=dashboard-cleopatra-assets
 
 ### Кастомізація
 1.  **Навігація**: Редагуйте масив `nav` у `config/dashboard-cleopatra.php`. Підтримуються вкладені елементи (dropdown).
-2.  **Стилі**: Пакет використовує скомпілений CSS Cleopatra. Ви можете додавати свої стилі через `@push('style')`.
-3.  **Livewire**: Для Livewire 4 використовуйте `@island(name: 'name')` навколо частин, що часто оновлюються (наприклад, графіки).
+2.  **Стилі**: Пакет використовує оригінальні стилі Cleopatra. Ви можете додавати свої стилі через `@push('style')`.
+3.  **Livewire**: Для Livewire 4 використовуйте `@island(name: 'name')` навколо частин, що часто оновлюються.
 
 ### Поради для ІІ
 -   Для створення нових сторінок використовуйте `@extends('dashboard-cleopatra::layouts.full')`.
--   Для інтерактивності використовуйте Alpine.js, який вже інтегрований.
--   Всі компоненти мають префікс `x-dashboard-cleopatra-` для уникнення конфліктів.
+-   Для навігації використовуйте `wire:navigate`.
+-   Всі компоненти мають префікс `dashboard-cleopatra-`.
