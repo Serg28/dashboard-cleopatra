@@ -10,17 +10,25 @@
                 <p class="text-gray-500">Увійдіть у свій аккаунт</p>
             </div>
 
-            <form action="{{ route('login') }}" method="POST">
+            <form action="{{ Route::has('login') ? route('login') : '#' }}" method="POST">
                 @csrf
-                <x-dashboard-cleopatra::input label="Email" name="email" type="email" required autofocus />
-                <x-dashboard-cleopatra::input label="Пароль" name="password" type="password" required />
-
-                <div class="flex items-center justify-between mb-6">
-                    <x-dashboard-cleopatra::checkbox label="Запам'ятати мене" name="remember" />
-                    <a href="#" class="text-sm text-indigo-600 hover:underline">Забули пароль?</a>
+                <div class="space-y-4 mb-6">
+                    <div>
+                        <x-dashboard-cleopatra-label label="Email" />
+                        <x-dashboard-cleopatra-input name="email" type="email" required autofocus />
+                    </div>
+                    <div>
+                        <x-dashboard-cleopatra-label label="Пароль" />
+                        <x-dashboard-cleopatra-input name="password" type="password" required />
+                    </div>
                 </div>
 
-                <x-dashboard-cleopatra::button class="w-full" size="lg">Увійти</x-dashboard-cleopatra::button>
+                <div class="flex items-center justify-between mb-6">
+                    <x-dashboard-cleopatra-checkbox label="Запам'ятати мене" name="remember" />
+                    <a href="#" class="text-sm text-primary hover:underline">Забули пароль?</a>
+                </div>
+
+                <x-dashboard-cleopatra-button class="w-full" size="lg" type="submit">Увійти</x-dashboard-cleopatra-button>
             </form>
 
             <div class="mt-6 text-center text-sm text-gray-500">
