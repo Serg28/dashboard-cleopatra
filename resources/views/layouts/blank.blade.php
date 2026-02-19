@@ -2,6 +2,7 @@
 
 @push('body')
     <body class="bg-gray-100">
-        {!! $slot !!}
+        {{ $slot ?? '' }}
+        @yield('content')
     </body>
 @endpush

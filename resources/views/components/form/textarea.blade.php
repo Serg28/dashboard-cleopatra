@@ -1,45 +1,29 @@
-@php
-$id = $attributes->get('name', null) . \Str::random(10);
-@endphp
+@props([
+    'label' => null,
+    'name' => null,
+    'value' => null,
+    'placeholder' => null,
+    'rows' => 3,
+    'required' => false,
+])
 
-<div @class(['my-6 w-full'])
-    dir="{{ dashboard_rtl('rtl', 'ltr') }}">
-
-    @unless($hideLabel)
-        @include('dashboard-cleopatra::components.form.label')
-    @endunless
+<div class="mb-4">
+    @if($label)
+        <label for="{{ $name }}" class="block text-sm font-bold text-gray-700 mb-2">
+            {{ $label }} @if($required)<span class="text-red-500">*</span>@endif
+        </label>
+    @endif
 
     <textarea
-        {{ $attributes->except('class')->merge([
-            'type' => 'text',
-            'id' => $id,
-            'placeholder' => $slot,
-        ]) }}
-        @class([
-            'block w-full rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50',
-            'border-gray-300' => !$errors->has($attributes->get('name')),
-            'border-red-500' => $errors->has($attributes->get('name')),
-        ])>{!! $attributes->get('value') !!}</textarea>
+        name="{{ $name }}"
+        id="{{ $name }}"
+        rows="{{ $rows }}"
+        placeholder="{{ $placeholder }}"
+        {{ $required ? 'required' : '' }}
+        {{ $attributes->merge(['class' => 'w-full px-4 py-2 rounded border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition duration-300 outline-none']) }}
+    >{{ $value ?? old($name) }}</textarea>
 
-    @error($attributes->get('name'))
-        <div class="text-red-500">
-            {{ $message }}
-        </div>
+    @error($name)
+        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
     @enderror
 </div>
-
-@if ($ckeditor)
-    @push('scripts')
-        <script>
-            CKEDITOR.replace("{{ $id }}");
-            CKEDITOR.config.height = "25em";
-            CKEDITOR.config.forcePasteAsPlainText = false;
-            CKEDITOR.config.pasteFromWordRemoveFontStyles = false;
-            CKEDITOR.config.pasteFromWordRemoveStyles = false;
-            CKEDITOR.config.allowedContent = true;
-            CKEDITOR.config.extraAllowedContent = 'p(mso*,Normal)';
-            CKEDITOR.config.pasteFilter = null;
-            CKEDITOR.config.filebrowserUploadUrl = "{{ Route::has('tenant.dashboard.upload') ? route('tenant.dashboard.upload') : '' }}";
-        </script>
-    @endpush
-@endif

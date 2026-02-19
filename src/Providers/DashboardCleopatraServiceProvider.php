@@ -3,19 +3,56 @@
 namespace LDK\DashboardCleopatra\Providers;
 
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class DashboardCleopatraServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        //
+        $this->mergeConfigFrom(__DIR__ . '/../../config/dashboard-cleopatra.php', 'dashboard-cleopatra');
     }
 
     public function boot()
     {
-        Paginator::useBootstrap();
+        // Використовуємо Tailwind для пагінації, оскільки шаблон базується на ньому
+        Paginator::useTailwind();
 
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'dashboard-cleopatra');
+
+        $this->registerComponents();
+
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../../config/dashboard-cleopatra.php' => config_path('dashboard-cleopatra.php'),
+            ], 'dashboard-cleopatra-config');
+
+            $this->publishes([
+                __DIR__ . '/../../public/assets' => public_path('vendor/dashboard-cleopatra'),
+            ], 'dashboard-cleopatra-assets');
+        }
+    }
+
+    protected function registerComponents()
+    {
+        Blade::component('dashboard-cleopatra::components.card', 'cleopatra-card');
+        Blade::component('dashboard-cleopatra::components.button', 'cleopatra-button');
+        Blade::component('dashboard-cleopatra::components.badge', 'cleopatra-badge');
+        Blade::component('dashboard-cleopatra::components.alert', 'cleopatra-alert');
+        Blade::component('dashboard-cleopatra::components.dropdown', 'cleopatra-dropdown');
+        Blade::component('dashboard-cleopatra::components.modal', 'cleopatra-modal');
+        Blade::component('dashboard-cleopatra::components.stats-card', 'cleopatra-stats-card');
+        Blade::component('dashboard-cleopatra::components.label', 'cleopatra-label');
+
+        Blade::component('dashboard-cleopatra::components.table', 'cleopatra-table');
+        Blade::component('dashboard-cleopatra::components.thead', 'cleopatra-thead');
+        Blade::component('dashboard-cleopatra::components.tr', 'cleopatra-tr');
+        Blade::component('dashboard-cleopatra::components.th', 'cleopatra-th');
+        Blade::component('dashboard-cleopatra::components.td', 'cleopatra-td');
+
+        Blade::component('dashboard-cleopatra::components.form.input', 'cleopatra-input');
+        Blade::component('dashboard-cleopatra::components.form.select', 'cleopatra-select');
+        Blade::component('dashboard-cleopatra::components.form.checkbox', 'cleopatra-checkbox');
+        Blade::component('dashboard-cleopatra::components.form.textarea', 'cleopatra-textarea');
     }
 }
