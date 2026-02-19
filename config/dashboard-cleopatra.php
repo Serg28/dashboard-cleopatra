@@ -13,6 +13,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Демо-режим
+    |--------------------------------------------------------------------------
+    |
+    | Якщо true, будуть доступні демо-маршрути за префіксом /cleopatra-demo
+    |
+    */
+    'demo' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Логотип панелі керування
     |--------------------------------------------------------------------------
     |
@@ -40,17 +50,17 @@ return [
         ],
         [
             'title' => 'Аналітика',
-            'url' => '/admin/analytics',
+            'url' => '/cleopatra-demo/analytics',
             'icon' => 'fad fa-chart-line',
         ],
         [
             'title' => 'E-commerce',
-            'url' => '/admin/ecommerce',
+            'url' => '/cleopatra-demo/ecommerce',
             'icon' => 'fad fa-shopping-cart',
         ],
         [
             'title' => 'Криптовалюта',
-            'url' => '/admin/crypto',
+            'url' => '/cleopatra-demo/crypto',
             'icon' => 'fab fa-bitcoin',
         ],
         [
@@ -59,17 +69,17 @@ return [
         ],
         [
             'title' => 'Загальні',
-            'url' => '/admin/ui-elements',
+            'url' => '/cleopatra-demo/ui-elements',
             'icon' => 'fad fa-layer-group',
         ],
         [
             'title' => 'Таблиці',
-            'url' => '/admin/tables',
+            'url' => '/cleopatra-demo/tables',
             'icon' => 'fad fa-table',
         ],
         [
             'title' => 'Форми',
-            'url' => '/admin/forms',
+            'url' => '/cleopatra-demo/forms',
             'icon' => 'fad fa-edit',
         ],
         [
@@ -78,12 +88,12 @@ return [
         ],
         [
             'title' => 'Профіль',
-            'url' => '/admin/profile',
+            'url' => '/cleopatra-demo/profile',
             'icon' => 'fad fa-user',
         ],
         [
             'title' => 'Вихід',
-            'url' => '/logout',
+            'url' => '/cleopatra-demo/login',
             'icon' => 'fad fa-sign-out',
         ],
     ],

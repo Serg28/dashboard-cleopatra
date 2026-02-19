@@ -9,6 +9,7 @@
 -   **Livewire 3 та 4**: Повна сумісність, підтримка **Livewire Islands** та **wire:navigate**.
 -   **Власна бібліотека компонентів**: Картки, кнопки, бейджі, форми, таблиці, модальні вікна та інше.
 -   **Адаптивний дизайн**: Оптимізовано для всіх пристроїв.
+-   **Демо-сторінки**: Включено готові приклади дашбордів, таблиць та форм.
 -   **Українська локалізація**: Всі коментарі та документація українською мовою.
 
 ## Встановлення
@@ -19,14 +20,27 @@
 composer require laravel-dashboard-kit/dashboard-cleopatra
 ```
 
-**Важливо:** Якщо ви отримуєте помилку конфлікту `illuminate/support`, переконайтеся, що ваш проект використовує Laravel 10 або вище. Також рекомендується видалити `laravel-dashboard-kit/dashboard-ui`, якщо він був встановлений раніше, оскільки цей пакет тепер незалежний.
-
 Опублікуйте конфігурацію та асети:
 
 ```bash
 php artisan vendor:publish --tag=dashboard-cleopatra-config
 php artisan vendor:publish --tag=dashboard-cleopatra-assets
 ```
+
+## Швидкий старт (Демо)
+
+Щоб побачити пакет у дії, увімкніть демо-режим у `config/dashboard-cleopatra.php`:
+
+```php
+'demo' => true,
+```
+
+Після цього вам будуть доступні наступні маршрути:
+-   `/cleopatra-demo/analytics` — Головний дашборд аналітики.
+-   `/cleopatra-demo/tables` — Приклад сторінки з таблицями.
+-   `/cleopatra-demo/forms` — Приклад сторінки з формами.
+-   `/cleopatra-demo/ecommerce` — Дашборд електронної комерції.
+-   `/cleopatra-demo/crypto` — Крипто-дашборд.
 
 ## Використання компонентів
 
@@ -59,10 +73,6 @@ php artisan vendor:publish --tag=dashboard-cleopatra-assets
 />
 ```
 
-## Навігація
-
-Налаштуйте меню у файлі `config/dashboard-cleopatra.php`.
-
 ---
 
 ## Інструкція для розробника та ІІ
@@ -71,7 +81,7 @@ php artisan vendor:publish --tag=dashboard-cleopatra-assets
 
 -   **Компоненти**: Знаходяться в `resources/views/components/`. Кожен компонент спроектований так, щоб бути максимально незалежним.
 -   **Лейаути**: `layouts/full.blade.php` - основний макет з бічною панеллю.
--   **Livewire 4 Islands**: Використовуйте директиву `@island` для частин сторінки, які повинні оновлюватися незалежно.
+-   **Контролери та Маршрути**: Демо-логіка знаходиться в `src/Http/Controllers` та `routes/web.php`.
 
 ### Кастомізація
 

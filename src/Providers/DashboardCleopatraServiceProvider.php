@@ -4,6 +4,7 @@ namespace LDK\DashboardCleopatra\Providers;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class DashboardCleopatraServiceProvider extends ServiceProvider
@@ -29,6 +30,8 @@ class DashboardCleopatraServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'dashboard-cleopatra');
 
         $this->registerComponents();
+        $this->registerRoutes();
+        $this->registerIslandFallback();
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
@@ -62,5 +65,26 @@ class DashboardCleopatraServiceProvider extends ServiceProvider
         Blade::component('dashboard-cleopatra::components.form.select', 'cleopatra-select');
         Blade::component('dashboard-cleopatra::components.form.checkbox', 'cleopatra-checkbox');
         Blade::component('dashboard-cleopatra::components.form.textarea', 'cleopatra-textarea');
+    }
+
+    protected function registerRoutes()
+    {
+        if (config('dashboard-cleopatra.demo', false)) {
+            Route::middleware('web')->group(__DIR__ . '/../../routes/web.php');
+        }
+    }
+
+    protected function registerIslandFallback()
+    {
+        // Якщо Livewire 4 не встановлено (і директива @island відсутня),
+        // реєструємо її як пусту обгортку для сумісності з Livewire 3
+        if (! array_key_exists('island', Blade::getCustomDirectives())) {
+            Blade::directive('island', function ($expression) {
+                return "<?php ?>";
+            });
+            Blade::directive('endisland', function () {
+                return "<?php ?>";
+            });
+        }
     }
 }
