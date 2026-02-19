@@ -3,10 +3,14 @@
 @push('body')
 
     <body class="bg-gray-100">
-        @include('dashboard-cleopatra::areas.full.main-header')
+        @island(name: 'main-header', always: true)
+            @include('dashboard-cleopatra::areas.full.main-header')
+        @endisland
 
         <div class="h-screen flex flex-row flex-wrap">
-            @include('dashboard-cleopatra::areas.full.main-sidebar')
+            @island(name: 'main-sidebar', always: true)
+                @include('dashboard-cleopatra::areas.full.main-sidebar')
+            @endisland
 
             @include('dashboard-cleopatra::areas.full.content')
 

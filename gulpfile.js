@@ -12,7 +12,7 @@ const logSymbols = require("log-symbols");
 const fileinclude = require("gulp-file-include");
 const cache = require("gulp-cache");
 
-//Load Previews on Browser on dev
+// Завантаження попереднього перегляду в браузері під час розробки
 task("livepreview", (done) => {
   browserSync.init({
     server: {
@@ -26,9 +26,9 @@ task("livepreview", (done) => {
   done();
 });
 
-//Reload functions which triggers browser reload
+// Функції перезавантаження, які запускають перезавантаження браузера
 function previewReload(done) {
-  console.log("\n\t" + logSymbols.info, "Reloading Preview.\n");
+  console.log("\n\t" + logSymbols.info, "Перезавантаження попереднього перегляду.\n");
   browserSync.reload();
   cache.clearAll(done);
   done();
@@ -46,7 +46,7 @@ task("build-html", () => {
     .pipe(dest(options.paths.build.base));
 });
 
-//Compiling styles
+// Компіляція стилів
 task("dev-styles", () => {
   return src(options.paths.src.css + "/**/*")
     .pipe(sass().on("error", sass.logError))
@@ -61,14 +61,14 @@ task("dev-styles", () => {
     .pipe(dest(options.paths.dist.css));
 });
 
-//Compiling styles
+// Компіляція стилів
 task("build-styles", () => {
   return src(options.paths.dist.css + "/**/*")
     .pipe(cleanCSS({ compatibility: "ie8" }))
     .pipe(dest(options.paths.build.css));
 });
 
-//merging all script files to a single file
+// Об'єднання всіх файлів скриптів в один файл
 task("dev-scripts", () => {
   return src([
     options.paths.src.js + "/libs/**/*.js",
@@ -78,7 +78,7 @@ task("dev-scripts", () => {
     .pipe(dest(options.paths.dist.js));
 });
 
-//merging all script files to a single file
+// Об'єднання всіх файлів скриптів в один файл
 task("build-scripts", () => {
   return (
     src([
@@ -101,56 +101,56 @@ task("build-imgs", (done) => {
   done();
 });
 
-//Watch files for changes
+// Спостереження за змінами у файлах
 task("watch-changes", (done) => {
-  //Watching HTML Files edits
+  // Спостереження за редагуванням файлів конфігурації tailwind
   watch(options.config.tailwindjs, series("dev-styles", previewReload));
 
-  //Watching HTML Files edits
+  // Спостереження за редагуванням HTML файлів
   watch(
     options.paths.src.base + "/views/**/*.html",
     series("dev-styles", "dev-html", previewReload)
   );
 
-  //Watching css Files edits
+  // Спостереження за редагуванням CSS файлів
   watch(options.paths.src.css + "/**/*", series("dev-styles", previewReload));
 
-  //Watching JS Files edits
+  // Спостереження за редагуванням JS файлів
   watch(
     options.paths.src.js + "/**/*.js",
     series("dev-scripts", previewReload)
   );
 
-  //Watching Img Files updates
+  // Спостереження за оновленням зображень
   watch(options.paths.src.img + "/**/*", series("dev-imgs", previewReload));
 
   console.log(
     "\n\t" + logSymbols.info,
-    "Watching for Changes made to files.\n"
+    "Спостереження за змінами у файлах.\n"
   );
 
   done();
 });
 
-//Cleaning dist folder for fresh start
+// Очищення папки dist для нового старту
 task("clean:dist", () => {
   console.log(
     "\n\t" + logSymbols.info,
-    "Cleaning dist folder for fresh start.\n"
+    "Очищення папки dist для нового старту.\n"
   );
   return del(["dist"]);
 });
 
-//Cleaning build folder for fresh start
+// Очищення папки build для нового старту
 task("clean:build", () => {
   console.log(
     "\n\t" + logSymbols.info,
-    "Cleaning build folder for fresh start.\n"
+    "Очищення папки build для нового старту.\n"
   );
   return del(["build"]);
 });
 
-//series of tasks to run on dev command
+// Серія завдань для запуску команди розробки
 task(
   "development",
   series(
@@ -162,7 +162,7 @@ task(
     (done) => {
       console.log(
         "\n\t" + logSymbols.info,
-        "npm run dev is complete. Files are located at ./dist\n"
+        "npm run dev завершено. Файли знаходяться в ./dist\n"
       );
       done();
     }
@@ -181,7 +181,7 @@ task(
     (done) => {
       console.log(
         "\n\t" + logSymbols.info,
-        "npm run build is complete. Files are located at ./build\n"
+        "npm run build завершено. Файли знаходяться в ./build\n"
       );
       done();
     }

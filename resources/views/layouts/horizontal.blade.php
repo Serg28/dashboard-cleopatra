@@ -3,7 +3,9 @@
 @push('body')
 
     <body class="bg-gray-100">
-        @include('dashboard-cleopatra::areas.horizontal.main-header')
+        @island(name: 'main-header', always: true)
+            @include('dashboard-cleopatra::areas.horizontal.main-header')
+        @endisland
 
         <div class="h-screen flex flex-row flex-wrap">
             <x-dashboard-container>
