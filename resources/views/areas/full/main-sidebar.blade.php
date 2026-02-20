@@ -1,61 +1,46 @@
-<div class="space-y-6">
-    <!-- Section -->
-    <div>
-        <h4 class="text-[10px] font-bold text-muted-foreground uppercase tracking-widest px-3 mb-4">ДАШБОРДИ</h4>
-        <ul class="space-y-1">
-            <x-dashboard-cleopatra-sidebar-item
-                label="Аналітика"
-                icon="ri-dashboard-line"
-                route="dashboard.index"
-                active="{{ request()->routeIs('dashboard.index') }}"
-            />
-            <x-dashboard-cleopatra-sidebar-item
-                label="E-commerce"
-                icon="ri-shopping-bag-3-line"
-                route="dashboard.ecommerce"
-                active="{{ request()->routeIs('dashboard.ecommerce') }}"
-            />
-            <x-dashboard-cleopatra-sidebar-item
-                label="Криптовалюта"
-                icon="ri-coin-line"
-                route="dashboard.crypto"
-                active="{{ request()->routeIs('dashboard.crypto') }}"
-            />
-        </ul>
-    </div>
+<div id="sideBar"
+    class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 flex-none w-64 md:-ml-64 md:fixed md:top-0 md:z-30 md:h-screen md:shadow-xl animated faster">
 
-    <!-- Section -->
-    <div>
-        <h4 class="text-[10px] font-bold text-muted-foreground uppercase tracking-widest px-3 mb-4">APPS</h4>
-        <ul class="space-y-1">
-            <x-dashboard-cleopatra-sidebar-item label="Пошта" icon="ri-mail-line" route="#" />
-            <x-dashboard-cleopatra-sidebar-item label="Календар" icon="ri-calendar-line" route="#" />
-            <x-dashboard-cleopatra-sidebar-item label="Чат" icon="ri-chat-3-line" route="#" />
-        </ul>
-    </div>
+    <div class="flex flex-col">
+        @foreach (config('dashboard-ui.nav', []) as $parent)
+            @switch($parent['type'] ?? null)
+                @case('label')
+                    <p class="uppercase text-xs text-gray-600 mt-4 mb-4 tracking-wider">
+                        {{ $parent['title'] }}
+                    </p>
+                @break
 
-    <!-- Section -->
-    <div>
-        <h4 class="text-[10px] font-bold text-muted-foreground uppercase tracking-widest px-3 mb-4">UI ЕЛЕМЕНТИ</h4>
-        <ul class="space-y-1">
-            <x-dashboard-cleopatra-sidebar-item
-                label="Компоненти"
-                icon="ri-stack-line"
-                route="dashboard.ui-elements"
-                active="{{ request()->routeIs('dashboard.ui-elements') }}"
-            />
-            <x-dashboard-cleopatra-sidebar-item
-                label="Таблиці"
-                icon="ri-table-line"
-                route="dashboard.tables"
-                active="{{ request()->routeIs('dashboard.tables') }}"
-            />
-            <x-dashboard-cleopatra-sidebar-item
-                label="Форми"
-                icon="ri-edit-box-line"
-                route="dashboard.forms"
-                active="{{ request()->routeIs('dashboard.forms') }}"
-            />
-        </ul>
+                @default
+                    @if (isset($parent['items']) && is_array($parent['items']))
+                        <x-dashboard-dropdown :title="__($parent['title'])"
+                            :active="count(array_filter(Arr::pluck($parent['items'], 'active'))) > 0">
+                            @foreach ($parent['items'] ?? [] as $child)
+                                <x-dashboard-dropdown-item :href="$child['url']"
+                                    :active="$child['active'] ?? false"
+                                    :hideHr="$loop->last">
+                                    {{ __($child['title']) }}
+                                </x-dashboard-dropdown-item>
+                            @endforeach
+                        </x-dashboard-dropdown>
+                    @else
+                        <a href="{{ $parent['url'] }}"
+                            @class([
+                                'flex gap-2 items-center font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500',
+                                'text-teal-700' => isset($parent['active']) && $parent['active'],
+                                'mb-3' => !$loop->last,
+                            ])>
+                            @isset($parent['icon'])
+                                @svg($parent['icon'], [
+                                    'width' => 16,
+                                    'height' => 16,
+                                ])
+                            @endisset
+                            {{ __($parent['title']) }}
+                        </a>
+                    @endif
+            @endswitch
+        @endforeach
     </div>
+    {{-- end sidebar content --}}
+
 </div>

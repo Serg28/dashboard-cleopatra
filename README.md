@@ -1,84 +1,37 @@
-# LDK Cleopatra 2.0 - Тема для панелі керування Laravel
+# LDK Cleopatra (Legacy) - Тема для панелі керування Laravel
 
-Цей пакет надає повну порт версію сучасного шаблону **Cleopatra 2.0** для Laravel 10, 11 та 12.
+Це успадкована версія пакету Cleopatra, яка зберігає залежність від `laravel-dashboard-kit/dashboard-ui`. Вона адаптована для роботи з Laravel 10+ та Livewire 3+ та повністю локалізована українською мовою.
 
-## Особливості
+## Особливості цієї версії
 
--   **100% відповідність оригіналу**: Всі компоненти та сторінки відтворюють оригінальну розмітку Cleopatra.
--   **Повна незалежність**: Пакет не вимагає `dashboard-ui` або інших зовнішніх UI-пакетів.
--   **Підтримка Laravel 10, 11 та 12**.
--   **Livewire 3 та 4**: Повна сумісність, підтримка **Livewire Islands** та **wire:navigate**.
--   **Власна бібліотека компонентів**: Картки, кнопки, бейджі, форми, таблиці, модальні вікна, сайдбар та хедер.
--   **Українська локалізація**: Всі коментарі та документація українською мовою.
+-   **Залежність від Dashboard UI**: Використовує спільні компоненти та логіку з пакету `dashboard-ui`.
+-   **Локалізація**: Український інтерфейс та документація.
+-   **Сумісність**: Працює на Laravel 10, 11, 12 та Livewire 3, 4.
 
 ## Встановлення
-
-Встановіть пакет через composer:
 
 ```bash
 composer require laravel-dashboard-kit/dashboard-cleopatra
 ```
 
-Опублікуйте конфігурацію та асети:
+*Примітка: Переконайтеся, що `laravel-dashboard-kit/dashboard-ui` також сумісний з вашою версією Laravel.*
 
-```bash
-php artisan vendor:publish --tag=dashboard-cleopatra-config
-php artisan vendor:publish --tag=dashboard-cleopatra-assets
-```
+## Налаштування
 
-## Тестові сторінки (Демо)
-
-Щоб переглянути готові сторінки, увімкніть демо-режим у `config/dashboard-cleopatra.php`:
+Ця версія використовує конфігурацію `dashboard-ui` для побудови меню:
 
 ```php
-'demo' => true,
+// config/dashboard-ui.php
+'nav' => [
+    [
+        'title' => 'Головна',
+        'url' => '/dashboard',
+        'icon' => 'fad fa-home',
+    ],
+    // ...
+],
 ```
-
-Маршрути для тестування (100% відповідність оригіналу):
--   `/cleopatra-demo/analytics` — Головний дашборд аналітики.
--   `/cleopatra-demo/ecommerce` — Дашборд електронної комерції.
--   `/cleopatra-demo/tables` — Сторінка з прикладами таблиць.
--   `/cleopatra-demo/forms` — Сторінка з прикладами форм.
--   `/cleopatra-demo/ui-elements` — Бібліотека UI елементів.
 
 ## Використання компонентів
 
-Пакет надає набір компонентів з префіксом `dashboard-cleopatra-`.
-
-### Приклади компонентів:
-
-**Картка (Card):**
-```blade
-<x-dashboard-cleopatra-card>
-    <x-slot name="header">Заголовок</x-slot>
-    Вміст
-</x-dashboard-cleopatra-card>
-```
-
-**Статистична картка (Stats Card):**
-```blade
-<x-dashboard-cleopatra-stats-card
-    title="Продажі"
-    value="$12,000"
-    trend="+5%"
-    icon="fad fa-shopping-cart"
-    color="indigo"
-/>
-```
-
----
-
-## Інструкція для розробника та ІІ
-
-### Архітектура
-Кожен компонент в `resources/views/components/` відповідає за певну частину оригінального шаблону. Макети в `resources/views/layouts/` використовують ці компоненти для створення цілісного інтерфейсу.
-
-### Кастомізація
-1.  **Навігація**: Редагуйте масив `nav` у `config/dashboard-cleopatra.php`. Підтримуються вкладені елементи (dropdown).
-2.  **Стилі**: Пакет використовує оригінальні стилі Cleopatra. Ви можете додавати свої стилі через `@push('style')`.
-3.  **Livewire**: Для Livewire 4 використовуйте `@island(name: 'name')` навколо частин, що часто оновлюються.
-
-### Поради для ІІ
--   Для створення нових сторінок використовуйте `@extends('dashboard-cleopatra::layouts.full')`.
--   Для навігації використовуйте `wire:navigate`.
--   Всі компоненти мають префікс `dashboard-cleopatra-`.
+Використовуйте стандартні компоненти `dashboard-ui`, які будуть стилізовані під тему Cleopatra.
