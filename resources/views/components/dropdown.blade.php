@@ -1,5 +1,5 @@
 <div class="dropdown relative md:static">
-    <x-dashboard::button :color="$color">
+    <x-dashboard-button :color="$color">
         @isset($custom)
             {!! $custom !!}
         @else
@@ -9,7 +9,7 @@
 
             <i class="fad fa-chevron-down {{ dashboard_rtl('mr-2', 'ml-2') }} text-xs leading-none"></i>
         @endisset
-    </x-dashboard::button>
+    </x-dashboard-button>
     {{-- <button @class([
         'menu-btn p-0 m-0 focus:outline-none transition-all ease-in-out duration-300 flex items-center',
         'text-gray-500 hover:text-gray-900 focus:text-gray-900' =>

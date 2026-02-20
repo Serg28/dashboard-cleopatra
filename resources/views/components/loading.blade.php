@@ -3,7 +3,7 @@
         class="w-full">
 @endif
 
-<x-dashboard::flex {{ $attributes->merge([
+<x-dashboard-flex {{ $attributes->merge([
     'class' => 'text-center w-full',
 ]) }}
     x="center"
@@ -30,7 +30,7 @@
         </svg>
     @endif
     {{ $slot }}
-</x-dashboard::flex>
+</x-dashboard-flex>
 
 @if ($attributes->get('livewire'))
     </div>

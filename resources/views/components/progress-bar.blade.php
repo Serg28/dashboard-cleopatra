@@ -1,5 +1,5 @@
 {{-- text upper progress bar --}}
-<x-dashboard::flex class="text-muted small"
+<x-dashboard-flex class="text-muted small"
     x="between">
     <div>
         @isset($topStart)
@@ -11,7 +11,7 @@
             {{ $topEnd }}
         @endisset
     </div>
-</x-dashboard::flex>
+</x-dashboard-flex>
 
 {{-- Progress bar itself --}}
 <div {{ $attributes->merge([
@@ -26,7 +26,7 @@
 </div>
 
 {{-- text below progress bar --}}
-<x-dashboard::flex class="text-muted small"
+<x-dashboard-flex class="text-muted small"
     x="between">
     <div>
         @isset($bottomStart)
@@ -38,4 +38,4 @@
             {{ $bottomEnd }}
         @endisset
     </div>
-</x-dashboard::flex>
+</x-dashboard-flex>

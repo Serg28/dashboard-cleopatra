@@ -8,7 +8,7 @@ if (!$dontNotify) {
 }
 @endphp
 
-<x-dashboard::button :color="$color"
+<x-dashboard-button :color="$color"
     {{ $attributes->merge([
         'type' => 'submit',
     ]) }}
@@ -18,4 +18,4 @@ if (!$dontNotify) {
     @else
         حفظ
     @endif
-</x-dashboard::button>
+</x-dashboard-button>

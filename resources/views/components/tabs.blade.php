@@ -9,7 +9,7 @@ $tabs = array_combine(
 );
 @endphp
 
-<x-dashboard::card x-cloak
+<x-dashboard-card x-cloak
     x-data="{
     activeTab: (new URL(window.location.href)).searchParams.get('activeTab') ?? '{{ array_key_first($tabs) }}'
 }"
@@ -19,20 +19,20 @@ $tabs = array_combine(
     history.pushState(null, document.title, url.toString());
 })">
     <x-slot name="header">
-        <x-dashboard::flex x="start"
+        <x-dashboard-flex x="start"
             class="gap-2">
             @foreach ($tabs as $id => $tab)
-                <x-dashboard::button color="secondary"
+                <x-dashboard-button color="secondary"
                     x-bind:class="{
                         'btn-secondary': activeTab != '{{ $id }}',
                         'btn-primary': activeTab == '{{ $id }}'
                     }"
                     @click="activeTab = '{{ $id }}'">
                     {{ $tab }}
-                </x-dashboard::button>
+                </x-dashboard-button>
             @endforeach
-        </x-dashboard::flex>
+        </x-dashboard-flex>
     </x-slot>
 
     {!! $slot !!}
-</x-dashboard::card>
+</x-dashboard-card>
